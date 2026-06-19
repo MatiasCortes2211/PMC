@@ -3,6 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import LeccionesEditor from './LeccionesEditor'
+import EditarCursoForm from './EditarCursoForm'
 
 export default async function EditarCursoPage({
   params,
@@ -28,17 +29,12 @@ export default async function EditarCursoPage({
           pequeños momentos de calma · Admin
         </span>
         <Link href="/admin" className="text-sm text-[#7EA87F] hover:underline">
-          ← Volver
+          volver
         </Link>
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-8">
-        <div>
-          <h1 className="text-3xl font-semibold text-[#2A3828] mb-1">
-            {curso.title}
-          </h1>
-          <p className="text-[#5A6854] text-sm">{curso.description}</p>
-        </div>
+        <EditarCursoForm curso={curso} />
 
         <div className="bg-white rounded-2xl border border-[#D4CABC] p-6 flex items-center justify-between">
           <div>

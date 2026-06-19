@@ -5,6 +5,7 @@ import { useState } from 'react'
 type Leccion = {
   id: string
   title: string
+  description: string | null
   videoUrl: string | null
   order: number
 }
@@ -18,9 +19,12 @@ export default function LeccionesEditor({
 }) {
   const [lista, setLista] = useState<Leccion[]>(lecciones)
   const [titulo, setTitulo] = useState('')
+  const [descripcion, setDescripcion] = useState('')
   const [videoUrl, setVideoUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [editando, setEditando] = useState<string | null>(null)
+  const [editData, setEditData] = useState<Partial<Leccion>>({})
 
   async function agregarLeccion() {
     if (!titulo.trim()) return
@@ -32,6 +36,7 @@ export default function LeccionesEditor({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: titulo,
+        description: descripcion || null,
         videoUrl: videoUrl || null,
         order: lista.length + 1,
       }),
@@ -47,8 +52,26 @@ export default function LeccionesEditor({
 
     setLista([...lista, data])
     setTitulo('')
+    setDescripcion('')
     setVideoUrl('')
     setLoading(false)
+  }
+
+  async function guardarEdicion(id: string) {
+    const res = await fetch(
+      `/api/admin/cursos/${cursoId}/lecciones/${id}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editData),
+      }
+    )
+    const data = await res.json()
+    if (res.ok) {
+      setLista(lista.map((l) => (l.id === id ? data : l)))
+      setEditando(null)
+      setEditData({})
+    }
   }
 
   async function eliminarLeccion(id: string) {
@@ -70,24 +93,81 @@ export default function LeccionesEditor({
       {lista.map((leccion) => (
         <div
           key={leccion.id}
-          className="bg-white rounded-2xl border border-[#D4CABC] px-6 py-4 flex items-center justify-between"
+          className="bg-white rounded-2xl border border-[#D4CABC] overflow-hidden"
         >
-          <div>
-            <p className="text-[#2A3828] font-medium">
-              {leccion.order}. {leccion.title}
-            </p>
-            {leccion.videoUrl && (
-              <p className="text-xs text-[#9A9488] mt-0.5 truncate max-w-sm">
-                {leccion.videoUrl}
-              </p>
-            )}
-          </div>
-          <button
-            onClick={() => eliminarLeccion(leccion.id)}
-            className="text-sm text-red-400 hover:text-red-600"
-          >
-            Eliminar
-          </button>
+          {editando === leccion.id ? (
+            <div className="p-6 space-y-3">
+              <div>
+                <label className="block text-sm text-[#2A3828] mb-1">Título</label>
+                <input
+                  value={editData.title ?? leccion.title}
+                  onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                  className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-[#2A3828] mb-1">Descripción</label>
+                <textarea
+                  value={editData.description ?? leccion.description ?? ''}
+                  onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+                  rows={3}
+                  className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F] resize-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-[#2A3828] mb-1">URL de YouTube</label>
+                <input
+                  value={editData.videoUrl ?? leccion.videoUrl ?? ''}
+                  onChange={(e) => setEditData({ ...editData, videoUrl: e.target.value })}
+                  className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
+                />
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button
+                  onClick={() => guardarEdicion(leccion.id)}
+                  className="bg-[#2A3828] text-[#F5F2EC] px-4 py-2 rounded-lg text-sm hover:bg-[#3a4f38] transition-colors"
+                >
+                  Guardar
+                </button>
+                <button
+                  onClick={() => { setEditando(null); setEditData({}) }}
+                  className="bg-[#D4CABC] text-[#2A3828] px-4 py-2 rounded-lg text-sm hover:bg-[#c4baac] transition-colors"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="px-6 py-4 flex items-start justify-between gap-4">
+              <div>
+                <p className="text-[#2A3828] font-medium">
+                  {leccion.order}. {leccion.title}
+                </p>
+                {leccion.description && (
+                  <p className="text-sm text-[#5A6854] mt-0.5">{leccion.description}</p>
+                )}
+                {leccion.videoUrl && (
+                  <p className="text-xs text-[#9A9488] mt-0.5 truncate max-w-sm">
+                    {leccion.videoUrl}
+                  </p>
+                )}
+              </div>
+              <div className="flex gap-3 shrink-0">
+                <button
+                  onClick={() => { setEditando(leccion.id); setEditData({}) }}
+                  className="text-sm text-[#5A6854] hover:text-[#2A3828]"
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={() => eliminarLeccion(leccion.id)}
+                  className="text-sm text-red-400 hover:text-red-600"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       ))}
 
@@ -99,20 +179,29 @@ export default function LeccionesEditor({
           <input
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            type="text"
             className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
           />
         </div>
 
         <div>
           <label className="block text-sm text-[#2A3828] mb-1">
-            URL del video de YouTube{' '}
-            <span className="text-[#9A9488]">(opcional)</span>
+            Descripción <span className="text-[#9A9488]">(opcional)</span>
+          </label>
+          <textarea
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            rows={2}
+            className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F] resize-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-[#2A3828] mb-1">
+            URL de YouTube <span className="text-[#9A9488]">(opcional)</span>
           </label>
           <input
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
-            type="url"
             placeholder="https://www.youtube.com/watch?v=..."
             className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
           />
