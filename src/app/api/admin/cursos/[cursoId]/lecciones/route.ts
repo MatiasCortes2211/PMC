@@ -12,10 +12,10 @@ export async function POST(
   }
 
   const { cursoId } = await params
-  const { title, videoUrl, order } = await req.json()
+  const { title, description, videoUrl, order } = await req.json()
 
   const leccion = await prisma.lesson.create({
-    data: { title, videoUrl, order, courseId: cursoId },
+    data: { title, description, videoUrl, order, courseId: cursoId },
   })
 
   return NextResponse.json(leccion)
