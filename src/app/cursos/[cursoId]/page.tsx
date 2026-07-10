@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth'
 import { redirect, notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
 
 function getYouTubeId(url: string) {
   const match = url.match(
@@ -41,14 +42,7 @@ export default async function CursoPage({
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
-      <nav className="bg-white border-b border-[#D4CABC] px-6 py-4 flex justify-between items-center">
-        <Link href="/cursos" className="text-[#2A3828] font-semibold">
-          pequeños momentos de calma
-        </Link>
-        <Link href="/cursos" className="text-sm text-[#7EA87F] hover:underline">
-          volver a cursos
-        </Link>
-      </nav>
+      <Navbar />
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
         <div>

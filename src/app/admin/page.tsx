@@ -37,7 +37,7 @@ export default async function AdminPage() {
             href="/admin/contenido"
             className="bg-white border border-[#D4CABC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold text-[#2A3828] hover:bg-[#F5F2EC] transition-colors"
           >
-            ✏️ Editar contenido del sitio
+            ✏️ Editar contenido de la página principal
           </Link>
         </div>
 

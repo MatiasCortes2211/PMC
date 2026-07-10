@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -15,26 +16,7 @@ export default async function BlogPage() {
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F5F2EC]/95 backdrop-blur-sm border-b border-[rgba(42,56,40,0.1)]">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#7EA87F] flex items-center justify-center">
-              <span className="text-[#F5F2EC] text-xs">🌿</span>
-            </div>
-            <span className="font-playfair font-semibold text-[#2A3828] text-[13px] leading-tight tracking-wide">
-              Pequeños<br />Momentos
-            </span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">Inicio</Link>
-            <Link href="/cursos" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">Cursos</Link>
-            <Link href="/blog" className="text-sm font-nunito font-semibold text-[#7EA87F]">Blog</Link>
-          </div>
-          <Link href="/login" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">
-            Iniciar sesión
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="pt-28 pb-24 px-6">
         <div className="max-w-6xl mx-auto">

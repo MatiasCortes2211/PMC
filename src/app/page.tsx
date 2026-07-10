@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
+import Navbar from '@/components/Navbar'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -13,6 +14,11 @@ const fmt = (p: number) => `$${p.toLocaleString('es-AR')}`
 export default async function HomePage() {
   const session = await auth()
   const cursos = await prisma.course.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  })
+  const posts = await prisma.blogPost.findMany({
     where: { published: true },
     orderBy: { createdAt: 'desc' },
     take: 3,
@@ -45,48 +51,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F5F2EC]">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F5F2EC]/95 backdrop-blur-sm border-b border-[rgba(42,56,40,0.1)]">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#7EA87F] flex items-center justify-center">
-              <svg className="w-4 h-4 text-[#F5F2EC]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3s2 0 7 8c5-8 7-8 7-8M12 11v10" />
-              </svg>
-            </div>
-            <span className="font-playfair font-semibold text-[#2A3828] text-[13px] leading-tight tracking-wide">
-              Pequeños<br />Momentos
-            </span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8">
-            {[
-              { label: 'Inicio', href: '/' },
-              { label: 'Cursos', href: '/cursos' },
-              { label: 'Blog', href: '/blog' },
-            ].map(({ label, href }) => (
-              <Link key={href} href={href}
-                className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">
-                {label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            {session ? (
-              <Link href="/cursos"
-                className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">
-                Mis cursos
-              </Link>
-            ) : (
-              <Link href="/login"
-                className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">
-                Iniciar sesión
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -306,6 +271,67 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Blog */}
+      <section className="py-24 bg-[#EDE8DF]/40 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-px bg-[#5A6854]" />
+                <span className="text-[#5A6854] font-nunito text-sm font-bold uppercase tracking-widest">Artículos</span>
+              </div>
+              <h2 className="font-playfair text-4xl font-bold text-[#2A3828]">Del blog</h2>
+            </div>
+            <Link href="/blog" className="flex items-center gap-2 text-[#7EA87F] font-nunito font-bold hover:gap-3 transition-all">
+              Ver todos →
+            </Link>
+          </div>
+          {posts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="font-nunito text-[#9A9488]">Próximamente nuevos artículos.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-6">
+              {posts.map((p) => (
+                <Link key={p.id} href={`/blog/${p.id}`}>
+                  <div className="bg-white rounded-2xl overflow-hidden border border-[rgba(42,56,40,0.1)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+                    {p.imageUrl && (
+                      <div className="h-44 bg-[#D4CABC] overflow-hidden">
+                        <img src={p.imageUrl} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    )}
+                    <div className="p-5 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-3">
+                        {p.category && (
+                          <span className={`text-xs font-nunito font-semibold px-2.5 py-0.5 rounded-full ${
+                            p.category === 'Aromaterapia' ? 'bg-[#D4E4C8] text-[#2A3828]' :
+                            p.category === 'Respiración' ? 'bg-[#A8C4A2] text-[#2A3828]' :
+                            'bg-[#EDE8DF] text-[#5A6854]'
+                          }`}>
+                            {p.category}
+                          </span>
+                        )}
+                        <span className="text-xs text-[#9A9488] font-nunito">🕐 {p.readTime} lectura</span>
+                      </div>
+                      <h3 className="font-playfair text-[#2A3828] font-semibold text-base leading-snug mb-2 flex-1">
+                        {p.title}
+                      </h3>
+                      <p className="text-[#9A9488] font-nunito text-sm leading-relaxed mb-3 line-clamp-2">
+                        {p.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-[#9A9488] font-nunito">
+                        <span>{p.author}</span>
+                        <span>{new Date(p.createdAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+      
       {/* CTA final */}
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center bg-[#2A3828] rounded-3xl p-12 relative overflow-hidden">
