@@ -20,6 +20,10 @@ export default async function EditarCursoPage({
     include: { lessons: { orderBy: { order: 'asc' } } },
   })
 
+  const categorias = await prisma.category.findMany({
+    orderBy: { name: 'asc' },
+  })
+
   if (!curso) notFound()
 
   return (
@@ -34,7 +38,7 @@ export default async function EditarCursoPage({
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-8">
-        <EditarCursoForm curso={curso} />
+        <EditarCursoForm curso={curso} categorias={categorias} />
 
         <div className="bg-white rounded-2xl border border-[#D4CABC] p-6 flex items-center justify-between">
           <div>

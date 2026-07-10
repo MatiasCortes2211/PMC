@@ -28,16 +28,22 @@ export default async function AdminPage() {
       </nav>
 
       <div className="max-w-5xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-semibold text-[#2A3828] mb-8">
+        <h1 className="font-playfair text-3xl font-bold text-[#2A3828] mb-6">
           Panel de administración
         </h1>
 
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-4 mb-10">
           <Link
             href="/admin/contenido"
-            className="bg-white border border-[#D4CABC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold text-[#2A3828] hover:bg-[#F5F2EC] transition-colors"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#5A6854] transition-colors"
           >
-            ✏️ Editar contenido de la página principal
+            ✏️ Editar contenido del sitio
+          </Link>
+          <Link
+            href="/admin/categorias"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#D4CABC] transition-colors"
+          >
+            🏷️ Categorías
           </Link>
         </div>
 
@@ -58,7 +64,7 @@ export default async function AdminPage() {
           <h2 className="text-xl font-semibold text-[#2A3828]">Cursos</h2>
           <Link
             href="/admin/cursos/nuevo"
-            className="bg-[#2A3828] text-[#F5F2EC] px-4 py-2 rounded-lg text-sm hover:bg-[#3a4f38] transition-colors"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#5A6854] transition-colors"
           >
             + Nuevo curso
           </Link>
@@ -70,7 +76,7 @@ export default async function AdminPage() {
           <h2 className="text-xl font-semibold text-[#2A3828]">Blog</h2>
           <Link
             href="/admin/blog/nuevo"
-            className="bg-[#2A3828] text-[#F5F2EC] px-4 py-2 rounded-lg text-sm hover:bg-[#3a4f38] transition-colors"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#5A6854] transition-colors"
           >
             + Nuevo artículo
           </Link>

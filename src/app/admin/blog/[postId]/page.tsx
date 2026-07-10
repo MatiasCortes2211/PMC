@@ -14,9 +14,10 @@ export default async function EditarPostPage({
 
   const { postId } = await params
 
-  const post = await prisma.blogPost.findUnique({
-    where: { id: postId },
-  })
+  const [post, categorias] = await Promise.all([
+    prisma.blogPost.findUnique({ where: { id: postId } }),
+    prisma.category.findMany({ orderBy: { name: 'asc' } }),
+  ])
 
   if (!post) notFound()
 
@@ -28,7 +29,7 @@ export default async function EditarPostPage({
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-6">
-        <EditarPostForm post={post} />
+        <EditarPostForm post={post} categorias={categorias} />
       </div>
     </main>
   )

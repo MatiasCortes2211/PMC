@@ -42,7 +42,7 @@ export default function LoginPage() {
           <div className="w-14 h-14 rounded-full bg-[#7EA87F] flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl">🌿</span>
           </div>
-          <h1 className="font-playfair text-3xl font-bold text-[#2A3828]">Bienvenida</h1>
+          <h1 className="font-playfair text-3xl font-bold text-[#2A3828]">Bienvenido</h1>
           <p className="font-nunito text-[#9A9488] mt-1 text-sm">Ingresá para acceder a tus cursos</p>
         </div>
 

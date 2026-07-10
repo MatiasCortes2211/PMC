@@ -16,7 +16,9 @@ type Curso = {
   updatedAt?: Date
 }
 
-export default function EditarCursoForm({ curso }: { curso: Curso }) {
+type Categoria = { id: string; name: string; color: string }
+
+export default function EditarCursoForm({ curso, categorias }: { curso: Curso; categorias: Categoria[] }) {
   const router = useRouter()
   const [editando, setEditando] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -107,9 +109,9 @@ export default function EditarCursoForm({ curso }: { curso: Curso }) {
           className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F] bg-white"
         >
           <option value="">Sin categoría</option>
-          <option value="Aromaterapia">Aromaterapia</option>
-          <option value="Respiración">Respiración</option>
-          <option value="Crianza">Crianza</option>
+          {categorias.map(cat => (
+            <option key={cat.id} value={cat.name}>{cat.name}</option>
+          ))}
         </select>
       </div>
 
