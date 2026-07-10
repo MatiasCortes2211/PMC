@@ -8,7 +8,12 @@ type Curso = {
   title: string
   description: string
   price: number
+  category: string | null
   imageUrl: string | null
+  lessons?: any[]
+  published?: boolean
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export default function EditarCursoForm({ curso }: { curso: Curso }) {
@@ -19,6 +24,7 @@ export default function EditarCursoForm({ curso }: { curso: Curso }) {
     title: curso.title,
     description: curso.description,
     price: curso.price,
+    category: curso.category ?? '',
     imageUrl: curso.imageUrl ?? '',
   })
 
@@ -30,6 +36,7 @@ export default function EditarCursoForm({ curso }: { curso: Curso }) {
       body: JSON.stringify({
         ...data,
         price: parseFloat(String(data.price)),
+        category: data.category || null,
         imageUrl: data.imageUrl || null,
       }),
     })
@@ -90,6 +97,20 @@ export default function EditarCursoForm({ curso }: { curso: Curso }) {
           onChange={(e) => setData({ ...data, price: parseFloat(e.target.value) })}
           className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
         />
+      </div>
+
+      <div>
+        <label className="block text-sm text-[#2A3828] mb-1">Categoría</label>
+        <select
+          value={data.category ?? ''}
+          onChange={(e) => setData({ ...data, category: e.target.value })}
+          className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F] bg-white"
+        >
+          <option value="">Sin categoría</option>
+          <option value="Aromaterapia">Aromaterapia</option>
+          <option value="Respiración">Respiración</option>
+          <option value="Crianza">Crianza</option>
+        </select>
       </div>
 
       <div>

@@ -36,56 +36,71 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#F5F2EC]">
-      <div className="bg-white rounded-2xl shadow-sm p-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold text-[#2A3828] mb-1">
-          Bienvenida
-        </h1>
-        <p className="text-[#5A6854] text-sm mb-6">
-          Ingresá a tu cuenta para acceder a los cursos
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm text-[#2A3828] mb-1">Email</label>
-            <input
-              name="email"
-              type="email"
-              required
-              className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
-            />
+    <div className="min-h-screen flex items-center justify-center px-6 bg-[#F5F2EC]">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="w-14 h-14 rounded-full bg-[#7EA87F] flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl">🌿</span>
           </div>
+          <h1 className="font-playfair text-3xl font-bold text-[#2A3828]">Bienvenida</h1>
+          <p className="font-nunito text-[#9A9488] mt-1 text-sm">Ingresá para acceder a tus cursos</p>
+        </div>
 
-          <div>
-            <label className="block text-sm text-[#2A3828] mb-1">Contraseña</label>
-            <input
-              name="password"
-              type="password"
-              required
-              className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
-            />
-          </div>
+        <div className="bg-white rounded-2xl p-8 border border-[rgba(42,56,40,0.1)] shadow-sm">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block font-nunito text-sm font-bold text-[#2A3828] mb-1.5">
+                Correo electrónico
+              </label>
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="tu@correo.com"
+                className="w-full px-4 py-2.5 rounded-xl border border-[rgba(42,56,40,0.15)] font-nunito text-sm text-[#2A3828] bg-white focus:outline-none focus:border-[#7EA87F] transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block font-nunito text-sm font-bold text-[#2A3828] mb-1.5">
+                Contraseña
+              </label>
+              <input
+                name="password"
+                type="password"
+                required
+                placeholder="••••••••"
+                className="w-full px-4 py-2.5 rounded-xl border border-[rgba(42,56,40,0.15)] font-nunito text-sm text-[#2A3828] bg-white focus:outline-none focus:border-[#7EA87F] transition-colors"
+              />
+            </div>
 
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
+            {error && (
+              <p className="text-red-500 font-nunito text-xs">{error}</p>
+            )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#2A3828] text-[#F5F2EC] rounded-lg py-2.5 text-sm font-medium hover:bg-[#3a4f38] transition-colors disabled:opacity-60"
-          >
-            {loading ? 'Ingresando...' : 'Ingresar'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3.5 bg-[#7EA87F] text-[#F5F2EC] font-nunito font-bold rounded-xl hover:bg-[#5A6854] transition-colors text-base disabled:opacity-60"
+            >
+              {loading ? 'Ingresando...' : 'Ingresar'}
+            </button>
+          </form>
 
-        <p className="text-center text-sm text-[#5A6854] mt-6">
-          ¿No tenés cuenta?{' '}
-          <Link href="/register" className="text-[#7EA87F] hover:underline">
-            Registrate
-          </Link>
-        </p>
+          <p className="text-center mt-4 text-xs font-nunito text-[#9A9488]">
+            ¿No tenés cuenta?{' '}
+            <Link href="/register" className="text-[#7EA87F] font-bold hover:underline">
+              Registrate gratis
+            </Link>
+          </p>
+        </div>
+
+        <Link
+          href="/"
+          className="block text-center mt-5 text-sm font-nunito text-[#9A9488] hover:text-[#2A3828] transition-colors"
+        >
+          ← Volver al inicio
+        </Link>
       </div>
-    </main>
+    </div>
   )
 }

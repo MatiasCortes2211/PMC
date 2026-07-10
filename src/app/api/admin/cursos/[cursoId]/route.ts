@@ -12,11 +12,11 @@ export async function PATCH(
   }
 
   const { cursoId } = await params
-  const { title, description, price, imageUrl } = await req.json()
+  const { title, description, price, imageUrl, category } = await req.json()
 
   const curso = await prisma.course.update({
     where: { id: cursoId },
-    data: { title, description, price, imageUrl },
+    data: { title, description, price, imageUrl, category },
   })
 
   return NextResponse.json(curso)
