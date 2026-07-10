@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import NuevoCursoForm from './NuevoCursoForm'
+import NavbarAdmin from '@/components/NavbarAdmin'
 
 export default async function NuevoCursoPage() {
   const session = await auth()
@@ -14,14 +15,7 @@ export default async function NuevoCursoPage() {
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
-      <nav className="bg-white border-b border-[#D4CABC] px-6 py-4 flex justify-between items-center">
-        <span className="font-playfair font-semibold text-[#2A3828]">
-          pequeños momentos de calma · Admin
-        </span>
-        <Link href="/admin" className="text-sm font-nunito text-[#7EA87F] hover:underline">
-          ← Volver
-        </Link>
-      </nav>
+      <NavbarAdmin backHref="/admin" backLabel="Volver al panel" />
 
       <div className="max-w-2xl mx-auto px-6 py-10">
         <h1 className="font-playfair text-3xl font-bold text-[#2A3828] mb-8">Nuevo curso</h1>

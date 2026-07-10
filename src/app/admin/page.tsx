@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import NavbarAdmin from '@/components/NavbarAdmin'
 
 export default async function AdminPage() {
   const session = await auth()
@@ -18,14 +19,7 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
-      <nav className="bg-white border-b border-[#D4CABC] px-6 py-4 flex justify-between items-center">
-        <span className="text-[#2A3828] font-semibold">
-          pequeños momentos de calma · Admin
-        </span>
-        <Link href="/cursos" className="text-sm text-[#7EA87F] hover:underline">
-          Ver sitio
-        </Link>
-      </nav>
+      <NavbarAdmin />
 
       <div className="max-w-5xl mx-auto px-6 py-10">
         <h1 className="font-playfair text-3xl font-bold text-[#2A3828] mb-6">

@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import LeccionesEditor from './LeccionesEditor'
 import EditarCursoForm from './EditarCursoForm'
+import NavbarAdmin from '@/components/NavbarAdmin'
 
 export default async function EditarCursoPage({
   params,
@@ -28,14 +29,7 @@ export default async function EditarCursoPage({
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
-      <nav className="bg-white border-b border-[#D4CABC] px-6 py-4 flex justify-between items-center">
-        <span className="text-[#2A3828] font-semibold">
-          pequeños momentos de calma · Admin
-        </span>
-        <Link href="/admin" className="text-sm text-[#7EA87F] hover:underline">
-          volver
-        </Link>
-      </nav>
+      <NavbarAdmin backHref="/admin" backLabel="Volver al panel" />
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-8">
         <EditarCursoForm curso={curso} categorias={categorias} />
