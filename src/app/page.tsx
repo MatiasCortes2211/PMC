@@ -18,6 +18,31 @@ export default async function HomePage() {
     take: 3,
   })
 
+  const rows = await prisma.siteContent.findMany()
+  const saved: Record<string, string> = {}
+  rows.forEach((r) => { saved[r.key] = r.value })
+
+  const c = {
+    hero_subtitulo: saved.hero_subtitulo ?? 'Un camino de crianza consciente a través de la aromaterapia, la respiración y la filosofía holística.',
+    hero_imagen: saved.hero_imagen ?? 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1920&h=1080&fit=crop&auto=format',
+    sobre_nombre: saved.sobre_nombre ?? 'Eugenia',
+    sobre_bio1: saved.sobre_bio1 ?? 'Soy terapeuta holística, instructora certificada de aromaterapia y respiración consciente. Llevo más de ocho años acompañando a familias en el camino hacia una crianza más presente y conectada con lo esencial.',
+    sobre_bio2: saved.sobre_bio2 ?? 'Pequeños Momentos de Calma nació de mi propia experiencia como madre y del deseo de que cada familia tenga acceso a estas herramientas, desde casa, a su propio ritmo.',
+    sobre_foto: saved.sobre_foto ?? 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=700&h=900&fit=crop&auto=format',
+    sobre_familias: saved.sobre_familias ?? '500',
+    testimonio1_nombre: saved.testimonio1_nombre ?? 'Catalina S.',
+    testimonio1_texto: saved.testimonio1_texto ?? 'La respiración 4-7-8 cambió por completo las noches en casa. Mi hijo de 5 años la pide solo antes de dormir.',
+    testimonio1_curso: saved.testimonio1_curso ?? 'Respiración Consciente',
+    testimonio2_nombre: saved.testimonio2_nombre ?? 'Rodrigo M.',
+    testimonio2_texto: saved.testimonio2_texto ?? 'Nunca pensé que los aceites esenciales fueran algo para mí, pero el curso me mostró cómo integrarlos con sentido.',
+    testimonio2_curso: saved.testimonio2_curso ?? 'Aromaterapia',
+    testimonio3_nombre: saved.testimonio3_nombre ?? 'Fernanda L.',
+    testimonio3_texto: saved.testimonio3_texto ?? 'El enfoque holístico me dio un marco de referencia que cambió mi manera de ver a mi hija. No solo sus conductas, sino a ella entera.',
+    testimonio3_curso: saved.testimonio3_curso ?? 'Crianza Holística',
+    contacto_email: saved.contacto_email ?? 'hola@pequenosmomentoscalma.com',
+    contacto_instagram: saved.contacto_instagram ?? '@pmc.calma',
+  }
+
   return (
     <div className="min-h-screen bg-[#F5F2EC]">
       {/* Navbar */}
@@ -38,6 +63,7 @@ export default async function HomePage() {
             {[
               { label: 'Inicio', href: '/' },
               { label: 'Cursos', href: '/cursos' },
+              { label: 'Blog', href: '/blog' },
             ].map(({ label, href }) => (
               <Link key={href} href={href}
                 className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">
@@ -66,7 +92,7 @@ export default async function HomePage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[#2A3828]">
           <img
-            src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1920&h=1080&fit=crop&auto=format"
+            src={c.hero_imagen}
             alt="Naturaleza serena"
             className="w-full h-full object-cover opacity-55"
           />
@@ -84,7 +110,7 @@ export default async function HomePage() {
           </h1>
           <p className="font-nunito text-lg md:text-xl text-[#F5F2EC] mb-10 leading-relaxed max-w-xl mx-auto"
             style={{ textShadow: '0 1px 8px rgba(42,56,40,0.5)' }}>
-            Un camino de crianza consciente a través de la aromaterapia, la respiración y la filosofía holística.
+            {c.hero_subtitulo}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/cursos"
@@ -138,13 +164,13 @@ export default async function HomePage() {
               <span className="text-[#5A6854] font-nunito text-sm font-bold uppercase tracking-widest">Quién soy</span>
             </div>
             <h2 className="font-playfair text-4xl font-bold text-[#2A3828] leading-tight mb-5">
-              Hola, soy <em className="italic text-[#5A6854]">Eugenia</em>
+              Hola, soy <em className="italic text-[#5A6854]">{c.sobre_nombre}</em>
             </h2>
             <p className="font-nunito text-[#9A9488] text-base leading-relaxed mb-4">
-              Soy terapeuta holística, instructora certificada de aromaterapia y respiración consciente. Llevo más de ocho años acompañando a familias en el camino hacia una crianza más presente y conectada con lo esencial.
+              {c.sobre_bio1}
             </p>
             <p className="font-nunito text-[#9A9488] text-base leading-relaxed mb-8">
-              Pequeños Momentos de Calma nació de mi propia experiencia como madre y del deseo de que cada familia tenga acceso a estas herramientas, desde casa, a su propio ritmo.
+              {c.sobre_bio2}
             </p>
             <div className="flex flex-wrap gap-2">
               {['Aromaterapia', 'Respiración consciente', 'Crianza holística'].map(tag => (
@@ -157,7 +183,7 @@ export default async function HomePage() {
           <div className="relative">
             <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-[#D4CABC]">
               <img
-                src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=700&h=900&fit=crop&auto=format"
+                src={c.sobre_foto}
                 alt="Eugenia"
                 className="w-full h-full object-cover object-top"
               />
@@ -168,7 +194,7 @@ export default async function HomePage() {
                   <span className="text-[#5A6854]">♥</span>
                 </div>
                 <div>
-                  <div className="font-playfair text-lg font-bold text-[#2A3828]">+500</div>
+                  <div className="font-playfair text-lg font-bold text-[#2A3828]">+{c.sobre_familias}</div>
                   <div className="text-[#9A9488] font-nunito text-xs">familias acompañadas</div>
                 </div>
               </div>
@@ -224,6 +250,15 @@ export default async function HomePage() {
                       </div>
                     )}
                     <div className="p-5 flex flex-col flex-1">
+                      {c.category && (
+                        <span className={`self-start text-xs font-nunito font-semibold px-2.5 py-0.5 rounded-full mb-3 ${
+                          c.category === 'Aromaterapia' ? 'bg-[#D4E4C8] text-[#2A3828]' :
+                          c.category === 'Respiración' ? 'bg-[#A8C4A2] text-[#2A3828]' :
+                          'bg-[#EDE8DF] text-[#5A6854]'
+                        }`}>
+                          {c.category}
+                        </span>
+                      )}
                       <h3 className="font-playfair text-[#2A3828] font-semibold text-lg leading-snug mb-2">{c.title}</h3>
                       <p className="text-[#9A9488] font-nunito text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{c.description}</p>
                       <div className="flex items-center justify-between pt-3 border-t border-[rgba(42,56,40,0.07)]">
@@ -253,9 +288,9 @@ export default async function HomePage() {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { name: 'Catalina S.', text: 'La respiración 4-7-8 cambió por completo las noches en casa. Mi hijo de 5 años la pide solo antes de dormir.', course: 'Respiración Consciente' },
-            { name: 'Rodrigo M.', text: 'Nunca pensé que los aceites esenciales fueran algo para mí, pero el curso me mostró cómo integrarlos con sentido.', course: 'Aromaterapia' },
-            { name: 'Fernanda L.', text: 'El enfoque holístico me dio un marco de referencia que cambió mi manera de ver a mi hija. No solo sus conductas, sino a ella entera.', course: 'Crianza Holística' },
+            { name: c.testimonio1_nombre, text: c.testimonio1_texto, course: c.testimonio1_curso },
+            { name: c.testimonio2_nombre, text: c.testimonio2_texto, course: c.testimonio2_curso },
+            { name: c.testimonio3_nombre, text: c.testimonio3_texto, course: c.testimonio3_curso },
           ].map(({ name, text, course }) => (
             <div key={name} className="bg-white rounded-2xl p-6 border border-[rgba(42,56,40,0.1)]">
               <div className="flex gap-0.5 mb-4">
@@ -307,7 +342,11 @@ export default async function HomePage() {
               <div className="flex flex-col items-center md:items-start">
                 <h4 className="font-nunito text-[#D4E4C8] font-bold text-sm mb-4">Explorar</h4>
                 <div className="flex flex-col items-center md:items-start gap-2.5">
-                  {[{ label: 'Inicio', href: '/' }, { label: 'Cursos', href: '/cursos' }].map(({ label, href }) => (
+                  {[
+                    { label: 'Inicio', href: '/' },
+                    { label: 'Cursos', href: '/cursos' },
+                    { label: 'Blog', href: '/blog' },
+                  ].map(({ label, href }) => (
                     <Link key={href} href={href} className="font-nunito text-sm text-[#A8C4A2]/60 hover:text-[#D4E4C8] transition-colors">
                       {label}
                     </Link>
@@ -317,9 +356,11 @@ export default async function HomePage() {
               <div className="flex flex-col items-center md:items-start">
                 <h4 className="font-nunito text-[#D4E4C8] font-bold text-sm mb-4">Contacto</h4>
                 <div className="flex flex-col items-center md:items-start gap-3">
-                  <a href="mailto:hola@pequenosmomentoscalma.com"
-                    className="font-nunito text-sm text-[#A8C4A2]/60 hover:text-[#D4E4C8] transition-colors">
-                    hola@pequenosmomentoscalma.com
+                  <a href={`mailto:${c.contacto_email}`} className="font-nunito text-sm text-[#A8C4A2]/60 hover:text-[#D4E4C8] transition-colors">
+                    {c.contacto_email}
+                  </a>
+                  <a href={`https://instagram.com/${c.contacto_instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="font-nunito text-sm text-[#A8C4A2]/60 hover:text-[#D4E4C8] transition-colors">
+                    {c.contacto_instagram}
                   </a>
                 </div>
               </div>

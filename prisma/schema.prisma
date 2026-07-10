@@ -108,3 +108,24 @@ enum PurchaseStatus {
   APPROVED
   REJECTED
 }
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  excerpt   String
+  content   String
+  author    String   @default("Eugenia")
+  category  String?
+  imageUrl  String?
+  readTime  String   @default("5 min")
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

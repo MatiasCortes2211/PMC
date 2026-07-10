@@ -32,6 +32,15 @@ export default async function AdminPage() {
           Panel de administración
         </h1>
 
+        <div className="flex gap-4 mb-8">
+          <Link
+            href="/admin/contenido"
+            className="bg-white border border-[#D4CABC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold text-[#2A3828] hover:bg-[#F5F2EC] transition-colors"
+          >
+            ✏️ Editar contenido del sitio
+          </Link>
+        </div>
+
         <div className="grid grid-cols-3 gap-6 mb-10">
           {[
             { label: 'Cursos publicados', value: totalCursos },
@@ -56,6 +65,18 @@ export default async function AdminPage() {
         </div>
 
         <AdminCursosList />
+
+        <div className="flex justify-between items-center mb-4 mt-10">
+          <h2 className="text-xl font-semibold text-[#2A3828]">Blog</h2>
+          <Link
+            href="/admin/blog/nuevo"
+            className="bg-[#2A3828] text-[#F5F2EC] px-4 py-2 rounded-lg text-sm hover:bg-[#3a4f38] transition-colors"
+          >
+            + Nuevo artículo
+          </Link>
+        </div>
+
+        <AdminBlogList />
       </div>
     </main>
   )
@@ -97,6 +118,45 @@ async function AdminCursosList() {
             href={`/admin/cursos/${curso.id}`}
             className="text-sm text-[#7EA87F] hover:underline"
           >
+            Editar
+          </Link>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+
+async function AdminBlogList() {
+  const posts = await prisma.blogPost.findMany({
+    orderBy: { createdAt: 'desc' },
+  })
+
+  if (posts.length === 0) {
+    return (
+      <div className="bg-white rounded-2xl p-8 text-center border border-[#D4CABC]">
+        <p className="text-[#5A6854]">No hay artículos todavía.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-[#D4CABC] overflow-hidden">
+      {posts.map((post, i) => (
+        <div
+          key={post.id}
+          className={`flex items-center justify-between px-6 py-4 ${i !== posts.length - 1 ? 'border-b border-[#D4CABC]' : ''}`}
+        >
+          <div>
+            <p className="text-[#2A3828] font-medium">{post.title}</p>
+            <p className="text-sm text-[#5A6854]">
+              {post.category ?? 'Sin categoría'} · {post.readTime} ·{' '}
+              <span className={post.published ? 'text-[#7EA87F]' : 'text-[#9A9488]'}>
+                {post.published ? 'Publicado' : 'Borrador'}
+              </span>
+            </p>
+          </div>
+          <Link href={`/admin/blog/${post.id}`} className="text-sm text-[#7EA87F] hover:underline">
             Editar
           </Link>
         </div>
