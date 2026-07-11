@@ -19,6 +19,7 @@ model User {
   purchases     Purchase[]
   accounts      Account[]
   sessions      Session[]
+  cartItems     CartItem[]
 }
 
 model Course {
@@ -34,6 +35,7 @@ model Course {
 
   lessons     Lesson[]
   purchases   Purchase[]
+  cartItems     CartItem[]
 }
 
 model Lesson {
@@ -135,4 +137,16 @@ model Category {
   name      String   @unique
   color     String   @default("bg-[#EDE8DF] text-[#5A6854]")
   createdAt DateTime @default(now())
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
 }

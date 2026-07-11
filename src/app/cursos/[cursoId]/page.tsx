@@ -1,8 +1,9 @@
 import { auth } from '@/lib/auth'
 import { redirect, notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import Link from 'next/link'
+import AgregarAlCarrito from './AgregarAlCarrito'
 
 function getYouTubeId(url: string) {
   const match = url.match(
@@ -44,35 +45,34 @@ export default async function CursoPage({
     <main className="min-h-screen bg-[#F5F2EC]">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
+      <div className="max-w-3xl mx-auto px-6 pt-28 pb-16 space-y-8">
+        <Link href="/cursos" className="inline-flex items-center gap-2 text-sm font-nunito text-[#7EA87F] hover:underline">
+          ← Volver a cursos
+        </Link>
+
         <div>
-          <h1 className="text-3xl font-semibold text-[#2A3828] mb-2">
+          <h1 className="font-playfair text-3xl font-bold text-[#2A3828] mb-2">
             {curso.title}
           </h1>
-          <p className="text-[#5A6854]">{curso.description}</p>
+          <p className="font-nunito text-[#5A6854]">{curso.description}</p>
         </div>
 
         {!tieneAcceso ? (
           <div className="bg-white rounded-2xl border border-[#D4CABC] p-8 text-center space-y-4">
-            <p className="text-[#2A3828] font-semibold text-xl">
+            <p className="font-playfair text-[#2A3828] font-bold text-2xl">
               ${curso.price.toLocaleString('es-AR')}
             </p>
-            <p className="text-[#5A6854] text-sm">
-              Compra el curso para acceder a todas las clases
+            <p className="font-nunito text-[#5A6854] text-sm">
+              Comprá el curso para acceder a todas las clases
             </p>
-            <a
-              href={`/api/pagos/crear?cursoId=${cursoId}`}
-              className="inline-block bg-[#2A3828] text-[#F5F2EC] px-6 py-3 rounded-lg text-sm font-medium hover:bg-[#3a4f38] transition-colors"
-            >
-              Comprar curso
-            </a>
+            <AgregarAlCarrito cursoId={cursoId} />
           </div>
         ) : (
           <div className="space-y-4">
             {curso.lessons.length === 0 && (
               <div className="bg-white rounded-2xl border border-[#D4CABC] p-6 text-center">
-                <p className="text-[#5A6854] text-sm">
-                  Proximamente se agregaran clases.
+                <p className="font-nunito text-[#5A6854] text-sm">
+                  Próximamente se agregarán clases.
                 </p>
               </div>
             )}
@@ -90,6 +90,11 @@ export default async function CursoPage({
                     <p className="text-[#2A3828] font-medium">
                       {leccion.order}. {leccion.title}
                     </p>
+                    {leccion.description && (
+                      <p className="font-nunito text-[#5A6854] text-sm mt-1">
+                        {leccion.description}
+                      </p>
+                    )}
                   </div>
                   {videoId && (
                     <div className="aspect-video">

@@ -28,6 +28,10 @@ export default async function BlogPostPage({
 
       <div className="pt-28 pb-24 px-6">
         <div className="max-w-2xl mx-auto">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-nunito text-[#7EA87F] hover:underline">
+            ← Volver a blogs
+          </Link>
+
           <div className="flex items-center gap-3 mb-4">
             {post.category && (
               <span className={`text-xs font-nunito font-semibold px-2.5 py-1 rounded-full ${catStyle[post.category] ?? 'bg-[#EDE8DF] text-[#5A6854]'}`}>
@@ -36,7 +40,6 @@ export default async function BlogPostPage({
             )}
             <span className="text-xs text-[#9A9488] font-nunito">🕐 {post.readTime} lectura</span>
           </div>
-
           <h1 className="font-playfair text-4xl md:text-5xl font-bold text-[#2A3828] leading-tight mb-5">
             {post.title}
           </h1>

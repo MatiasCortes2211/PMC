@@ -30,18 +30,44 @@ export async function POST(req: Request) {
 
     if (!ref) return NextResponse.json({ ok: true })
 
-    const [userId, courseId] = ref.split('|')
+    if (ref.startsWith('cart|')) {
+      const [, userId, cursosStr] = ref.split('|')
+      const cursoIds = cursosStr.split(',')
 
-    if (status === 'approved') {
-      await prisma.purchase.updateMany({
-        where: { userId, courseId },
-        data: { status: 'APPROVED', mpPaymentId: String(id) },
-      })
-    } else if (status === 'rejected') {
-      await prisma.purchase.updateMany({
-        where: { userId, courseId },
-        data: { status: 'REJECTED' },
-      })
+      if (status === 'approved') {
+        await Promise.all([
+          ...cursoIds.map((courseId) =>
+            prisma.purchase.updateMany({
+              where: { userId, courseId },
+              data: { status: 'APPROVED', mpPaymentId: String(id) },
+            })
+          ),
+          prisma.cartItem.deleteMany({ where: { userId } }),
+        ])
+      } else if (status === 'rejected') {
+        await Promise.all(
+          cursoIds.map((courseId) =>
+            prisma.purchase.updateMany({
+              where: { userId, courseId },
+              data: { status: 'REJECTED' },
+            })
+          )
+        )
+      }
+    } else {
+      const [userId, courseId] = ref.split('|')
+
+      if (status === 'approved') {
+        await prisma.purchase.updateMany({
+          where: { userId, courseId },
+          data: { status: 'APPROVED', mpPaymentId: String(id) },
+        })
+      } else if (status === 'rejected') {
+        await prisma.purchase.updateMany({
+          where: { userId, courseId },
+          data: { status: 'REJECTED' },
+        })
+      }
     }
   } catch (e) {
     console.error('Webhook error:', e)

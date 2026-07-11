@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { auth } from '@/lib/auth'
+import Carrito from './Carrito'
 
 export default async function Navbar() {
   const session = await auth()
@@ -34,6 +35,7 @@ export default async function Navbar() {
                   Admin
                 </Link>
               )}
+              <Carrito />
               <span className="text-sm font-nunito font-semibold text-[#2A3828]">
                 {user?.name ?? user?.email}
               </span>
