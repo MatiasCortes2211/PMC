@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ImageUploader from '@/components/ImageUploader'
 
 type Curso = {
   id: string
@@ -115,16 +116,11 @@ export default function EditarCursoForm({ curso, categorias }: { curso: Curso; c
         </select>
       </div>
 
-      <div>
-        <label className="block text-sm text-[#2A3828] mb-1">
-          URL de imagen <span className="text-[#9A9488]">(opcional)</span>
-        </label>
-        <input
-          value={data.imageUrl}
-          onChange={(e) => setData({ ...data, imageUrl: e.target.value })}
-          className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
-        />
-      </div>
+      <ImageUploader
+        value={data.imageUrl}
+        onChange={(url) => setData({ ...data, imageUrl: url })}
+        label="Imagen de portada"
+      />
 
       <div className="flex gap-2 pt-1">
         <button

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ImageUploader from '@/components/ImageUploader'
 
 type Post = {
   id: string
@@ -101,12 +102,12 @@ export default function EditarPostForm({ post, categorias }: { post: Post; categ
         <label className="block text-sm font-nunito text-[#2A3828] mb-1">Tiempo de lectura</label>
         <input value={data.readTime} onChange={e => setData({ ...data, readTime: e.target.value })} className={inputCls} />
       </div>
-      <div>
-        <label className="block text-sm font-nunito text-[#2A3828] mb-1">
-          URL imagen <span className="text-[#9A9488]">(opcional)</span>
-        </label>
-        <input value={data.imageUrl} onChange={e => setData({ ...data, imageUrl: e.target.value })} className={inputCls} />
-      </div>
+
+      <ImageUploader
+        value={data.imageUrl}
+        onChange={(url) => setData({ ...data, imageUrl: url })}
+        label="Imagen de portada (opcional)"
+      />
 
       <div className="flex gap-3 pt-2">
         <button onClick={guardar} disabled={loading}

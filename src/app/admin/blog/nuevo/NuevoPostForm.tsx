@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ImageUploader from '@/components/ImageUploader'
 
 type Categoria = { id: string; name: string; color: string }
 
@@ -9,6 +10,7 @@ export default function NuevoPostForm({ categorias }: { categorias: Categoria[] 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
 
   const inputCls = "w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
 
@@ -30,7 +32,7 @@ export default function NuevoPostForm({ categorias }: { categorias: Categoria[] 
         content: getValue('content'),
         author: getValue('author'),
         category: getValue('category') || null,
-        imageUrl: getValue('imageUrl') || null,
+        imageUrl: imageUrl || null,
         readTime: getValue('readTime') || '5 min',
       }),
     })
@@ -79,12 +81,12 @@ export default function NuevoPostForm({ categorias }: { categorias: Categoria[] 
         <label className="block text-sm font-nunito text-[#2A3828] mb-1">Tiempo de lectura</label>
         <input name="readTime" type="text" defaultValue="5 min" className={inputCls} />
       </div>
-      <div>
-        <label className="block text-sm font-nunito text-[#2A3828] mb-1">
-          URL imagen de portada <span className="text-[#9A9488]">(opcional)</span>
-        </label>
-        <input name="imageUrl" type="url" className={inputCls} />
-      </div>
+
+      <ImageUploader
+        value={imageUrl}
+        onChange={setImageUrl}
+        label="Imagen de portada (opcional)"
+      />
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
