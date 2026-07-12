@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { auth } from '@/lib/auth'
 import Carrito from './Carrito'
+import SignOutButton from './SignOutButton'
 
 export default async function Navbar() {
   const session = await auth()
@@ -39,12 +40,8 @@ export default async function Navbar() {
               <span className="text-sm font-nunito font-semibold text-[#2A3828]">
                 {user?.name ?? user?.email}
               </span>
-              <Link
-                href="/api/auth/signout"
-                className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors"
-              >
-                Salir
-              </Link>
+              
+              <SignOutButton />
             </>
           ) : (
             <Link

@@ -31,7 +31,7 @@ export default function LoginPage() {
       return
     }
 
-    router.push('/cursos')
+    router.push('/')
     router.refresh()
   }
 
