@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import LogoPrincipal from '../img/LogoPrincipal.jpg'
 
 type Props = {
   backHref?: string
@@ -7,23 +9,31 @@ type Props = {
 
 export default function NavbarAdmin({ backHref, backLabel }: Props) {
   return (
-    <nav className="bg-white border-b border-[#D4CABC] px-6 py-4 flex justify-between items-center">
-      <span className="font-playfair font-semibold text-[#2A3828]">
-        Pequeños Momentos de Calma · Admin
-      </span>
-      <div className="flex items-center gap-4">
-        <Link href="/" className="text-sm font-nunito text-[#5A6854] hover:text-[#2A3828] transition-colors">
-          Ver sitio
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F5F2EC] backdrop-blur-sm border-b border-[#D4CABC]">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center">
+            <Image src={LogoPrincipal} alt="Logo" className="w-full h-full object-cover" />
+          </div>
+          <span className="font-playfair font-semibold text-[#2A3828] text-[15px] leading-tight tracking-wide">
+            Pequeños Momentos de Calma · Admin
+          </span>
         </Link>
-        {backHref ? (
-          <Link href={backHref} className="text-sm font-nunito text-[#7EA87F] hover:underline">
-            ← {backLabel ?? 'Volver'}
+
+        <div className="flex items-center gap-4">
+          <Link href="/" className="text-sm font-nunito text-[#5A6854] hover:text-[#2A3828] transition-colors">
+            Ver sitio
           </Link>
-        ) : (
-          <Link href="/admin" className="text-sm font-nunito text-[#7EA87F] hover:underline">
-            ← Panel
-          </Link>
-        )}
+          {backHref ? (
+            <Link href={backHref} className="text-sm font-nunito text-[#7EA87F] hover:underline">
+              ← {backLabel ?? 'Volver'}
+            </Link>
+          ) : (
+            <Link href="/admin" className="text-sm font-nunito text-[#7EA87F] hover:underline">
+              ← Panel
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   )

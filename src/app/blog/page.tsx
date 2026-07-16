@@ -15,10 +15,10 @@ export default async function BlogPage() {
   })
 
   return (
-    <main className="min-h-screen bg-[#F5F2EC]">
+    <main className="min-h-screen bg-[#F5F2EC] pt-16">
       <Navbar />
 
-      <div className="pt-28 pb-24 px-6">
+      <div className="pt-12 pb-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <h1 className="font-playfair text-5xl font-bold text-[#2A3828] mb-4">Blog</h1>

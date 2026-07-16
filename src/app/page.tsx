@@ -51,7 +51,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F2EC]">
+    <div className="min-h-screen bg-[#F5F2EC] pt-16">
       <Navbar />
 
       {/* Hero */}

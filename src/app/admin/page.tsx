@@ -18,7 +18,7 @@ export default async function AdminPage() {
   })
 
   return (
-    <main className="min-h-screen bg-[#F5F2EC]">
+    <main className="min-h-screen bg-[#F5F2EC] pt-16">
       <NavbarAdmin />
 
       <div className="max-w-5xl mx-auto px-6 py-10">
