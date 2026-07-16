@@ -334,9 +334,41 @@ export default async function HomePage() {
       </section>
       
       {/* Formulario de contacto */}
-      <div className="bg-[#FEFEFE] rounded-2xl p-8 border border-[rgba(42,56,40,0.1)] shadow-sm">
-        <FormularioContacto />
-      </div>
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-px bg-[#7EA87F]" />
+                <span className="text-[#7EA87F] font-nunito text-sm font-bold uppercase tracking-widest">Contacto</span>
+              </div>
+              <h2 className="font-playfair text-4xl font-bold text-[#2A3828] leading-tight mb-5">
+                ¿Tenés alguna<br /><em className="italic text-[#5A6854]">pregunta?</em>
+              </h2>
+              <p className="font-nunito text-[#9A9488] text-base leading-relaxed mb-8">
+                Si tenés dudas sobre los cursos, querés saber si este camino es para vos, o simplemente querés decir hola — escribinos. Respondemos con cariño y sin apuro.
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <div className="font-nunito text-xs font-bold text-[#9A9488] uppercase tracking-widest mb-0.5">Correo</div>
+                  <a href={`mailto:${c.contacto_email}`} className="font-nunito text-[#2A3828] text-sm font-semibold hover:text-[#7EA87F] transition-colors">
+                    {c.contacto_email}
+                  </a>
+                </div>
+                <div>
+                  <div className="font-nunito text-xs font-bold text-[#9A9488] uppercase tracking-widest mb-0.5">Instagram</div>
+                  <a href={`https://instagram.com/${c.contacto_instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="font-nunito text-[#2A3828] text-sm font-semibold hover:text-[#7EA87F] transition-colors">
+                    {c.contacto_instagram}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl p-8 border border-[rgba(42,56,40,0.1)] shadow-sm">
+              <FormularioContacto />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA final */}
       <section className="py-24 px-6">
