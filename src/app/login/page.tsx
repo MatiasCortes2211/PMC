@@ -48,6 +48,11 @@ export default function LoginPage() {
         </div>
 
         <div className="bg-white rounded-2xl p-8 border border-[rgba(42,56,40,0.1)] shadow-sm space-y-4">
+          <div>
+            <h2 className="text-2xl font-semibold text-[#2A3828] mb-1">Iniciar sesión</h2>
+            <p className="text-[#5A6854] text-sm">Ingresá para acceder a tus cursos</p>
+          </div>
+
           <button
             onClick={() => signIn('google', { callbackUrl: '/' })}
             className="w-full flex items-center justify-center gap-3 border border-[#D4CABC] rounded-xl py-2.5 font-nunito text-sm font-semibold text-[#2A3828] hover:bg-[#F5F2EC] transition-colors"
@@ -63,7 +68,7 @@ export default function LoginPage() {
 
           <div className="flex items-center gap-3">
             <div className="flex-1 h-px bg-[#D4CABC]" />
-            <span className="font-nunito text-xs text-[#9A9488]">o</span>
+            <span className="font-nunito text-xs text-[#9A9488]">o iniciá sesión con email</span>
             <div className="flex-1 h-px bg-[#D4CABC]" />
           </div>
 
