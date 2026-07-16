@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth'
 import Navbar from '@/components/Navbar'
+import FormularioContacto from '@/components/FormularioContacto'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -332,6 +333,11 @@ export default async function HomePage() {
         </div>
       </section>
       
+      {/* Formulario de contacto */}
+      <div className="bg-[#FEFEFE] rounded-2xl p-8 border border-[rgba(42,56,40,0.1)] shadow-sm">
+        <FormularioContacto />
+      </div>
+
       {/* CTA final */}
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center bg-[#2A3828] rounded-3xl p-12 relative overflow-hidden">
