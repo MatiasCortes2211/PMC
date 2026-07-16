@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         <p><strong>Mensaje:</strong></p>
         <p>${message}</p>
       `,
-      reply_to: email,
+      replyTo: email,
     })
 
     return NextResponse.json({ ok: true })
