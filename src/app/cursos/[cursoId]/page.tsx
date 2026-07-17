@@ -4,12 +4,30 @@ import { prisma } from '@/lib/prisma'
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import AgregarAlCarrito from './AgregarAlCarrito'
+import { Metadata } from 'next'
 
 function getYouTubeId(url: string) {
   const match = url.match(
     /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   )
   return match ? match[1] : null
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ cursoId: string }>
+}): Promise<Metadata> {
+  const { cursoId } = await params
+  const curso = await prisma.course.findUnique({
+    where: { id: cursoId },
+    select: { title: true, description: true },
+  })
+
+  return {
+    title: curso?.title ?? 'Curso',
+    description: curso?.description ?? '',
+  }
 }
 
 export default async function CursoPage({

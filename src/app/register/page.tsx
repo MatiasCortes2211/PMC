@@ -5,6 +5,11 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPrincipal from '@/img/LogoPrincipal.jpg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Crear cuenta',
+}
 
 export default function RegisterPage() {
   const [error, setError] = useState('')

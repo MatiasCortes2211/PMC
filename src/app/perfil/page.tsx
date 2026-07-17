@@ -3,6 +3,11 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Mi perfil',
+}
 
 const fmt = (p: number) => `$${p.toLocaleString('es-AR')}`
 

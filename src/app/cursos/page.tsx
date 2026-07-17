@@ -3,6 +3,12 @@ import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cursos',
+  description: 'Explorá nuestros cursos de aromaterapia, respiración consciente y crianza holística.',
+}
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',

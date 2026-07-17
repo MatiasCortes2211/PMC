@@ -2,11 +2,29 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import { Metadata } from 'next'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
   Respiración: 'bg-[#A8C4A2] text-[#2A3828]',
   Crianza: 'bg-[#EDE8DF] text-[#5A6854]',
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ postId: string }>
+}): Promise<Metadata> {
+  const { postId } = await params
+  const post = await prisma.blogPost.findUnique({
+    where: { id: postId },
+    select: { title: true, excerpt: true },
+  })
+
+  return {
+    title: post?.title ?? 'Artículo',
+    description: post?.excerpt ?? '',
+  }
 }
 
 export default async function BlogPostPage({

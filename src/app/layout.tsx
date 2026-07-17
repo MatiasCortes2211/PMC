@@ -13,8 +13,21 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: 'Pequeños Momentos de Calma',
-  description: 'Crianza consciente a través de la aromaterapia y la respiración holística.',
+  title: {
+    default: 'Pequeños Momentos de Calma',
+    template: '%s | Pequeños Momentos de Calma',
+  },
+  description: 'Crianza consciente a través de la aromaterapia y la respiración holística. Cursos online para familias y educadores.',
+  keywords: ['aromaterapia', 'crianza consciente', 'respiración', 'bienestar infantil', 'cursos online'],
+  authors: [{ name: 'Pequeños Momentos de Calma' }],
+  openGraph: {
+    title: 'Pequeños Momentos de Calma',
+    description: 'Crianza consciente a través de la aromaterapia y la respiración holística.',
+    url: 'https://pmc-snowy.vercel.app',
+    siteName: 'Pequeños Momentos de Calma',
+    locale: 'es_AR',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
