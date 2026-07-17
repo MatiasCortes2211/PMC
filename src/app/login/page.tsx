@@ -6,11 +6,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPrincipal from '@/img/LogoPrincipal.jpg'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Iniciar sesión',
-}
 
 const errorMessages: Record<string, string> = {
   OAuthAccountNotLinked: 'Ya existe una cuenta con ese email. Ingresá con tu contraseña.',

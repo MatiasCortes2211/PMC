@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -88,6 +89,7 @@ export default async function BlogPostPage({
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   )
 }

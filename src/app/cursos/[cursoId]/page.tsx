@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import AgregarAlCarrito from './AgregarAlCarrito'
 import { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
 function getYouTubeId(url: string) {
   const match = url.match(
@@ -131,6 +132,7 @@ export default async function CursoPage({
           </div>
         )}
       </div>
+      <Footer />
     </main>
   )
 }

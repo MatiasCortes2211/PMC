@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Mi perfil',
@@ -100,6 +101,7 @@ export default async function PerfilPage() {
           )}
         </div>
       </div>
+      <Footer />
     </main>
   )
 }

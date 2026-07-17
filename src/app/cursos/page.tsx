@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import type { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Cursos',
@@ -86,6 +87,7 @@ export default async function CursosPage() {
           )}
         </div>
       </div>
+      <Footer />
     </main>
   )
 }
