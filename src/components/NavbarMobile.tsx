@@ -68,9 +68,13 @@ export default function NavbarMobile({ isAdmin, userName, isLoggedIn }: Props) {
                   Admin
                 </Link>
               )}
-              {userName && (
-                <p className="font-nunito text-sm text-[#2A3828] font-semibold">{userName}</p>
-              )}
+              <Link
+                href="/perfil"
+                onClick={() => setOpen(false)}
+                className="block font-nunito font-semibold text-[#2A3828] hover:text-[#7EA87F] transition-colors"
+              >
+                {userName}
+              </Link>
               <button
                 onClick={() => { setOpen(false); signOut({ callbackUrl: '/' }) }}
                 className="block font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors"

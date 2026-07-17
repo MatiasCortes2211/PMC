@@ -39,9 +39,12 @@ export default async function Navbar() {
                 </Link>
               )}
               <Carrito />
-              <span className="text-sm font-nunito font-semibold text-[#2A3828]">
-                {user?.name ?? user?.email}
-              </span>
+             <Link
+              href="/perfil"
+              className="text-sm font-nunito font-semibold text-[#2A3828] hover:text-[#7EA87F] transition-colors"
+            >
+              {user?.name ?? user?.email}
+            </Link>
               <SignOutButton />
             </>
           ) : (
