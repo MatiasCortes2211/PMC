@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Logov3 from '../img/Logov3.jpg'
 
 type Props = {
   email?: string
@@ -16,7 +17,7 @@ export default function Footer({
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2.5 mb-3">
               <div className="w-8 h-8 rounded-full bg-[#7EA87F] flex items-center justify-center">
-                <span className="text-[#F5F2EC] text-xs">🌿</span>
+                <img src={Logov3.src} alt="Logo" className="w-5 h-5 object-cover" />
               </div>
               <span className="font-playfair font-semibold text-[#D4E4C8] text-sm">
                 Pequeños Momentos de Calma
