@@ -12,14 +12,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      checks: ['nonce'],
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
-        },
-      },
     }),
     Credentials({
       credentials: {
@@ -65,4 +57,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: '/login',
   },
+  cookies: {
+  pkceCodeVerifier: {
+    name: 'next-auth.pkce.code_verifier',
+    options: {
+      httpOnly: true,
+      sameSite: 'none',
+      path: '/',
+      secure: true,
+    },
+  },
+},
 })
