@@ -2,8 +2,10 @@ import Link from 'next/link'
 import { auth } from '@/lib/auth'
 import Carrito from './Carrito'
 import SignOutButton from './SignOutButton'
+import NavbarMobile from './NavbarMobile'
 import Image from 'next/image'
 import LogoPrincipal from '../img/LogoPrincipal.jpg'
+import NavbarLinks from './NavbarLinks'
 
 export default async function Navbar() {
   const session = await auth()
@@ -21,13 +23,11 @@ export default async function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">Inicio</Link>
-          <Link href="/cursos" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">Cursos</Link>
-          <Link href="/blog" className="text-sm font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors">Blog</Link>
-        </div>
+        {/* Desktop - links */}
+        <NavbarLinks />
 
-        <div className="flex items-center gap-4">
+        {/* Desktop - acciones */}
+        <div className="hidden md:flex items-center gap-4">
           {session ? (
             <>
               {user?.role === 'ADMIN' && (
@@ -42,7 +42,6 @@ export default async function Navbar() {
               <span className="text-sm font-nunito font-semibold text-[#2A3828]">
                 {user?.name ?? user?.email}
               </span>
-
               <SignOutButton />
             </>
           ) : (
@@ -53,6 +52,16 @@ export default async function Navbar() {
               Iniciar sesión
             </Link>
           )}
+        </div>
+
+        {/* Mobile */}
+        <div className="flex md:hidden items-center gap-3">
+          {session && <Carrito />}
+          <NavbarMobile
+            isAdmin={user?.role === 'ADMIN'}
+            userName={user?.name ?? user?.email ?? null}
+            isLoggedIn={!!session}
+          />
         </div>
       </div>
     </nav>
