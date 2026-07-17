@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPrincipal from '../img/LogoPrincipal.jpg'
+import BotonVolver from './BotonVolver'
 
 type Props = {
   backHref?: string
@@ -22,16 +23,10 @@ export default function NavbarAdmin({ backHref, backLabel }: Props) {
 
         <div className="flex items-center gap-4">
           <Link href="/" className="text-sm font-nunito text-[#5A6854] hover:text-[#2A3828] transition-colors">
-            Ver sitio
+            Inicio
           </Link>
-          {backHref ? (
-            <Link href={backHref} className="text-sm font-nunito text-[#7EA87F] hover:underline">
-              ← {backLabel ?? 'Volver'}
-            </Link>
-          ) : (
-            <Link href="/admin" className="text-sm font-nunito text-[#7EA87F] hover:underline">
-              ← Panel
-            </Link>
+          {backHref && (
+            <BotonVolver />
           )}
         </div>
       </div>
