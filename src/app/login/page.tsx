@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -12,10 +12,21 @@ const errorMessages: Record<string, string> = {
   CredentialsSignin: 'Email o contraseña incorrectos.',
 }
 
-export default function LoginPage() {
-  const router = useRouter()
+function ErrorMessage() {
   const searchParams = useSearchParams()
   const errorParam = searchParams.get('error')
+
+  if (!errorParam || !errorMessages[errorParam]) return null
+
+  return (
+    <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+      <p className="text-red-500 font-nunito text-sm">{errorMessages[errorParam]}</p>
+    </div>
+  )
+}
+
+export default function LoginPage() {
+  const router = useRouter()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -60,11 +71,9 @@ export default function LoginPage() {
             <p className="text-[#5A6854] text-sm">Ingresá para acceder a tus cursos</p>
           </div>
 
-          {errorParam && errorMessages[errorParam] && (
-            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
-              <p className="text-red-500 font-nunito text-sm">{errorMessages[errorParam]}</p>
-            </div>
-          )}
+          <Suspense fallback={null}>
+            <ErrorMessage />
+          </Suspense>
 
           <button
             onClick={() => signIn('google', { callbackUrl: '/' })}
