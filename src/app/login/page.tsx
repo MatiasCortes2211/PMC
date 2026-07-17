@@ -2,13 +2,20 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPrincipal from '@/img/LogoPrincipal.jpg'
 
+const errorMessages: Record<string, string> = {
+  OAuthAccountNotLinked: 'Ya existe una cuenta con ese email. Ingresá con tu contraseña.',
+  CredentialsSignin: 'Email o contraseña incorrectos.',
+}
+
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const errorParam = searchParams.get('error')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -52,6 +59,12 @@ export default function LoginPage() {
             <h2 className="text-2xl font-semibold text-[#2A3828] mb-1">Iniciar sesión</h2>
             <p className="text-[#5A6854] text-sm">Ingresá para acceder a tus cursos</p>
           </div>
+
+          {errorParam && errorMessages[errorParam] && (
+            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+              <p className="text-red-500 font-nunito text-sm">{errorMessages[errorParam]}</p>
+            </div>
+          )}
 
           <button
             onClick={() => signIn('google', { callbackUrl: '/' })}
