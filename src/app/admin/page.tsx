@@ -69,8 +69,10 @@ export default async function AdminPage() {
             + Nuevo curso
           </Link>
         </div>
-
-        <AdminCursosList />
+        
+        <div className="bg-white rounded-2xl border border-[#D4CABC] overflow-hidden max-h-[400px] overflow-y-auto">
+          <AdminCursosList />
+        </div>
 
         <div className="flex justify-between items-center mb-4 mt-10">
           <h2 className="text-xl font-semibold text-[#2A3828]">Blog</h2>
@@ -81,8 +83,10 @@ export default async function AdminPage() {
             + Nuevo artículo
           </Link>
         </div>
-
-        <AdminBlogList />
+        
+        <div className="bg-white rounded-2xl border border-[#D4CABC] overflow-hidden max-h-[400px] overflow-y-auto">
+          <AdminBlogList />
+        </div>
       </div>
     </main>
   )
