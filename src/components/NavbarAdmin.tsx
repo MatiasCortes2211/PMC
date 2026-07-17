@@ -21,7 +21,7 @@ export default function NavbarAdmin({ backHref, backLabel }: Props) {
           </span>
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6 mr-10">
           <Link href="/" className="text-sm font-nunito text-[#5A6854] hover:text-[#2A3828] transition-colors">
             Inicio
           </Link>
