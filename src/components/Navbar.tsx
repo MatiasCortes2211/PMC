@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { auth } from '@/lib/auth'
 import Carrito from './Carrito'
-import SignOutButton from './SignOutButton'
 import NavbarMobile from './NavbarMobile'
 import Image from 'next/image'
 import LogoPrincipal from '../img/LogoPrincipal.jpg'
 import NavbarLinks from './NavbarLinks'
+import NavbarUserMenu from './NavbarUserMenu'
 
 export default async function Navbar() {
   const session = await auth()
@@ -39,13 +39,7 @@ export default async function Navbar() {
                 </Link>
               )}
               <Carrito />
-             <Link
-              href="/perfil"
-              className="text-sm font-nunito font-semibold text-[#2A3828] hover:text-[#7EA87F] transition-colors"
-            >
-              {user?.name ?? user?.email}
-            </Link>
-              <SignOutButton />
+              <NavbarUserMenu name={user?.name ?? user?.email ?? ''} />
             </>
           ) : (
             <Link

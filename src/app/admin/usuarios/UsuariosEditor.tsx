@@ -87,8 +87,8 @@ export default function UsuariosEditor({ usuarios, currentUserId }: { usuarios: 
           <div key={usuario.id} className="bg-white rounded-2xl border border-[#D4CABC] p-6">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="font-nunito font-bold text-[#2A3828]">
+                <div className="flex items-center gap-2 mb-1 min-w-0">
+                  <p className="font-nunito font-bold text-[#2A3828] truncate max-w-[180px]">
                     {usuario.name ?? 'Sin nombre'}
                   </p>
                   <span className={`text-xs font-nunito font-semibold px-2 py-0.5 rounded-full ${
@@ -99,7 +99,7 @@ export default function UsuariosEditor({ usuarios, currentUserId }: { usuarios: 
                     {usuario.role}
                   </span>
                 </div>
-                <p className="font-nunito text-[#9A9488] text-sm">{usuario.email}</p>
+                <p className="font-nunito text-[#9A9488] text-sm truncate max-w-[220px]">{usuario.email}</p>
                 <p className="font-nunito text-[#D4CABC] text-xs mt-1">
                   Registrado el {new Date(usuario.createdAt).toLocaleDateString('es-AR', {
                     day: 'numeric', month: 'long', year: 'numeric'

@@ -35,13 +35,13 @@ export default async function AdminPage() {
           </Link>
           <Link
             href="/admin/categorias"
-            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#D4CABC] transition-colors"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#5A6854] transition-colors"
           >
             🏷️ Categorías
           </Link>
           <Link
             href="/admin/usuarios"
-            className="bg-[#EDE8DF] text-[#2A3828] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#D4CABC] transition-colors"
+            className="bg-[#2A3828] text-[#F5F2EC] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#5A6854] transition-colors"
           >
             👥 Usuarios
           </Link>
