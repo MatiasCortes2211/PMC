@@ -2,13 +2,11 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPrincipal from '@/img/LogoPrincipal.jpg'
 
 export default function RegisterPage() {
-  const router = useRouter()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -37,7 +35,12 @@ export default function RegisterPage() {
       return
     }
 
-    router.push('/login')
+    await signIn('credentials', {
+      email,
+      password,
+      callbackUrl: '/',
+      redirect: true,
+    })
   }
 
   return (
@@ -95,9 +98,7 @@ export default function RegisterPage() {
               />
             </div>
             <div>
-              <label className="block font-nunito text-sm font-bold text-[#2A3828] mb-1.5">
-                Contraseña
-              </label>
+              <label className="block font-nunito text-sm font-bold text-[#2A3828] mb-1.5">Contraseña</label>
               <div className="relative">
                 <input
                   name="password"
