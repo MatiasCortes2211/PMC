@@ -39,6 +39,20 @@ export default function LoginPage() {
     const email = (form.elements.namedItem('email') as HTMLInputElement).value
     const password = (form.elements.namedItem('password') as HTMLInputElement).value
 
+    // Verificar si el email existe y tiene contraseña
+    const check = await fetch('/api/check-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    })
+    const checkData = await check.json()
+
+    if (checkData.exists && !checkData.hasPassword) {
+      setError('Esta cuenta usa Google para iniciar sesión. Usá el botón "Continuar con Google".')
+      setLoading(false)
+      return
+    }
+
     const result = await signIn('credentials', {
       email,
       password,
