@@ -18,6 +18,7 @@ type Usuario = {
 }
 
 const fmt = (p: number) => `$${p.toLocaleString('es-AR')}`
+const SUPERADMIN_EMAIL = 'matiasycortes@gmail.com'
 
 export default function UsuariosEditor({ usuarios, currentUserId }: { usuarios: Usuario[], currentUserId: string }) {
   const [lista, setLista] = useState(usuarios)
@@ -75,8 +76,18 @@ export default function UsuariosEditor({ usuarios, currentUserId }: { usuarios: 
             </div>
             <button
             onClick={() => toggleRole(usuario)}
-            disabled={loadingId === usuario.id || usuario.id === currentUserId}
-            title={usuario.id === currentUserId ? 'No podés cambiar tu propio rol' : ''}
+            disabled={
+                loadingId === usuario.id || 
+                usuario.id === currentUserId || 
+                usuario.email === SUPERADMIN_EMAIL
+            }
+            title={
+                usuario.email === SUPERADMIN_EMAIL 
+                    ? 'Este usuario no puede ser modificado' 
+                    : usuario.id === currentUserId 
+                    ? 'No podés cambiar tu propio rol' 
+                    : ''
+            }
             className={`text-xs font-nunito font-semibold px-3 py-1.5 rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                 usuario.role === 'ADMIN'
                 ? 'border-red-200 text-red-400 hover:bg-red-50'
