@@ -39,6 +39,12 @@ export default async function AdminPage() {
           >
             🏷️ Categorías
           </Link>
+          <Link
+            href="/admin/usuarios"
+            className="bg-[#EDE8DF] text-[#2A3828] rounded-xl px-5 py-3 text-sm font-nunito font-semibold hover:bg-[#D4CABC] transition-colors"
+          >
+            👥 Usuarios
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 gap-6 mb-10">
