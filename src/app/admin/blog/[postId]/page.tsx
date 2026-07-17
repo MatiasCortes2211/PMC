@@ -23,7 +23,7 @@ export default async function EditarPostPage({
   if (!post) notFound()
 
   return (
-    <main className="min-h-screen bg-[#F5F2EC]">
+    <main className="min-h-screen bg-[#F5F2EC] pt-16">
       <NavbarAdmin backHref="/admin" backLabel="Volver al panel" />
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-6">

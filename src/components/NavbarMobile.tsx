@@ -79,7 +79,7 @@ export default function NavbarMobile({ isAdmin, userName, isLoggedIn }: Props) {
                 onClick={() => { setOpen(false); signOut({ callbackUrl: '/' }) }}
                 className="block font-nunito font-semibold text-[#9A9488] hover:text-[#2A3828] transition-colors"
               >
-                Salir
+                Cerrar sesión
               </button>
             </>
           ) : (
