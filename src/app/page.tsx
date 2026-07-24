@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import Navbar from '@/components/Navbar'
 import FormularioContacto from '@/components/FormularioContacto'
 import Footer from '@/components/Footer'
+import { Droplets, Wind, Heart, Leaf } from 'lucide-react'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -68,7 +69,7 @@ export default async function HomePage() {
         <div className="relative text-center px-6 max-w-3xl mx-auto">
           <div className="flex justify-center mb-6">
             <div className="flex items-center gap-2 bg-[#D4E4C8]/25 backdrop-blur-sm px-4 py-2 rounded-full border border-[#D4E4C8]/40">
-              <span className="text-sm font-nunito text-[#D4E4C8] font-semibold">🌿 Crianza Holística</span>
+              <span className="text-sm font-nunito text-[#D4E4C8] font-semibold">Crianza Holística</span>
             </div>
           </div>
           <h1 className="font-playfair text-5xl md:text-[5.5rem] font-bold text-[#F5F2EC] leading-[1.08] mb-6"
@@ -172,13 +173,25 @@ export default async function HomePage() {
         {/* Pilares */}
         <div className="grid md:grid-cols-3 gap-6 mb-24">
           {[
-            { emoji: '🌿', title: 'Aromaterapia', desc: 'Aceites esenciales cuidadosamente seleccionados para crear ambientes de calma y fortalecer el vínculo familiar.' },
-            { emoji: '🌬️', title: 'Respiración Consciente', desc: 'Técnicas adaptadas para cada etapa del desarrollo que regulan el sistema nervioso y cultivan la presencia.' },
-            { emoji: '✨', title: 'Crianza Holística', desc: 'Una filosofía que ve al niño como un ser completo: cuerpo, mente, emoción y espíritu.' },
-          ].map(({ emoji, title, desc }) => (
+            {
+              icon: <Droplets className="w-6 h-6 text-[#5A6854]" />,
+              title: 'Aromaterapia',
+              desc: 'Aceites esenciales cuidadosamente seleccionados para crear ambientes de calma y fortalecer el vínculo familiar.'
+            },
+            {
+              icon: <Wind className="w-6 h-6 text-[#5A6854]" />,
+              title: 'Respiración Consciente',
+              desc: 'Técnicas adaptadas para cada etapa del desarrollo que regulan el sistema nervioso y cultivan la presencia.'
+            },
+            {
+              icon: <Heart className="w-6 h-6 text-[#5A6854]" />,
+              title: 'Crianza Holística',
+              desc: 'Una filosofía que ve al niño como un ser completo: cuerpo, mente, emoción y espíritu.'
+            },
+          ].map(({ icon, title, desc }) => (
             <div key={title} className="bg-[#EDE8DF]/60 rounded-2xl p-6 border border-[rgba(42,56,40,0.07)]">
-              <div className="w-12 h-12 rounded-full bg-[#D4E4C8] flex items-center justify-center mb-4 text-xl">
-                {emoji}
+              <div className="w-12 h-12 rounded-full bg-[#D4E4C8] flex items-center justify-center mb-4">
+                {icon}
               </div>
               <h3 className="font-playfair text-[#2A3828] text-xl font-semibold mb-2">{title}</h3>
               <p className="font-nunito text-[#9A9488] text-sm leading-relaxed">{desc}</p>
@@ -374,7 +387,9 @@ export default async function HomePage() {
       {/* CTA final */}
       <section className="py-24 px-6">
         <div className="max-w-3xl mx-auto text-center bg-[#2A3828] rounded-3xl p-12 relative overflow-hidden">
-          <div className="absolute top-4 right-4 opacity-10 text-[#D4E4C8] text-9xl font-playfair">🌿</div>
+          <div className="absolute top-4 right-4 opacity-10 text-[#D4E4C8]">
+            <Leaf className="w-32 h-32" />
+          </div>
           <h2 className="font-playfair text-4xl font-bold text-[#D4E4C8] mb-4 relative">Comienza tu camino hoy</h2>
           <p className="font-nunito text-[#A8C4A2]/80 text-lg mb-8 relative max-w-xl mx-auto">
             Únete a cientos de familias que ya están transformando su forma de criar, un pequeño momento a la vez.
