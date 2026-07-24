@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export default function AgregarAlCarrito({ cursoId }: { cursoId: string }) {
+  const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
   const [enCarrito, setEnCarrito] = useState(false)
 
   useEffect(() => {
+    if (!session) return
     fetch('/api/carrito')
       .then(res => res.json())
       .then(items => {
@@ -15,7 +18,7 @@ export default function AgregarAlCarrito({ cursoId }: { cursoId: string }) {
           setEnCarrito(items.some((i: any) => i.courseId === cursoId))
         }
       })
-  }, [cursoId])
+  }, [cursoId, session])
 
   async function agregar() {
     setLoading(true)
@@ -32,6 +35,25 @@ export default function AgregarAlCarrito({ cursoId }: { cursoId: string }) {
   }
 
   const url = '/api/pagos/crear?cursoId=' + cursoId
+
+  if (!session) {
+    return (
+      <div className="space-y-3">
+        <Link
+          href="/login"
+          className="block w-full bg-[#7EA87F] text-white rounded-lg py-3 font-nunito font-bold hover:bg-[#5A6854] transition-colors text-center"
+        >
+          Iniciar sesión para comprar
+        </Link>
+        <Link
+          href="/register"
+          className="block w-full text-center border border-[#D4CABC] text-[#2A3828] rounded-lg py-3 font-nunito font-semibold hover:bg-[#EDE8DF] transition-colors text-sm"
+        >
+          Crear cuenta gratis
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-3">

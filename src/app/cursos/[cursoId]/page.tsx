@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth'
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
@@ -37,8 +37,6 @@ export default async function CursoPage({
   params: Promise<{ cursoId: string }>
 }) {
   const session = await auth()
-  if (!session) redirect('/login')
-
   const { cursoId } = await params
 
   const curso = await prisma.course.findUnique({
@@ -48,17 +46,21 @@ export default async function CursoPage({
 
   if (!curso) notFound()
 
-  const compra = await prisma.purchase.findUnique({
-    where: {
-      userId_courseId: {
-        userId: (session.user as any).id,
-        courseId: cursoId,
-      },
-    },
-  })
+  const userId = (session?.user as any)?.id
+  const isAdmin = (session?.user as any)?.role === 'ADMIN'
 
-  const tieneAcceso =
-    compra?.status === 'APPROVED' || (session.user as any).role === 'ADMIN'
+  const compra = userId
+    ? await prisma.purchase.findUnique({
+        where: {
+          userId_courseId: {
+            userId,
+            courseId: cursoId,
+          },
+        },
+      })
+    : null
+
+  const tieneAcceso = compra?.status === 'APPROVED' || isAdmin
 
   return (
     <main className="min-h-screen bg-[#F5F2EC]">

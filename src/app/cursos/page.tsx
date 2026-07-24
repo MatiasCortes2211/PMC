@@ -1,6 +1,4 @@
 import { prisma } from '@/lib/prisma'
-import { auth } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import type { Metadata } from 'next'
@@ -20,8 +18,6 @@ const catStyle: Record<string, string> = {
 const fmt = (p: number) => `$${p.toLocaleString('es-AR')}`
 
 export default async function CursosPage() {
-  const session = await auth()
-  if (!session) redirect('/login')
 
   const cursos = await prisma.course.findMany({
     where: { published: true },
