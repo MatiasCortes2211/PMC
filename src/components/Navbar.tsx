@@ -13,18 +13,21 @@ export default async function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F5F2EC] backdrop-blur-sm border-b border-[#D4CABC]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between relative">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center">
             <Image src={LogoPrincipal} alt="Logo" className="w-full h-full object-cover" />
           </div>
           <span className="font-playfair font-semibold text-[#2A3828] text-[15px] leading-tight tracking-wide">
-            Pequeños Momentos de Calma
+            Pequeños<br />Momentos<br />de Calma
           </span>
         </Link>
 
-        {/* Desktop - links */}
-        <NavbarLinks />
+        {/* Desktop - links centrados */}
+        <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
+          <NavbarLinks />
+        </div>
 
         {/* Desktop - acciones */}
         <div className="hidden md:flex items-center gap-4">
