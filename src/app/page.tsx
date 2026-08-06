@@ -148,7 +148,7 @@ export default async function HomePage() {
               ))}
             </div>
           </div>
-          <div className="relative">
+          <div className="relative max-w-sm mx-auto">
             <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-[#D4CABC]">
               <img className="w-full h-full object-cover object-top"
                 src={Eugenia.src}
