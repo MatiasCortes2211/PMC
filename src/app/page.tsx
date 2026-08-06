@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import FormularioContacto from '@/components/FormularioContacto'
 import Footer from '@/components/Footer'
 import { Droplets, Wind, Heart, Leaf } from 'lucide-react'
-import Eugenia from '../img/Eugenia.jpeg'
+import Eugenia from '../img/Eugenia.jpg'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -38,7 +38,6 @@ export default async function HomePage() {
     sobre_nombre: saved.sobre_nombre ?? 'Eugenia',
     sobre_bio1: saved.sobre_bio1 ?? 'Soy terapeuta holística, instructora certificada de aromaterapia y respiración consciente. Llevo más de ocho años acompañando a familias en el camino hacia una crianza más presente y conectada con lo esencial.',
     sobre_bio2: saved.sobre_bio2 ?? 'Pequeños Momentos de Calma nació de mi propia experiencia como madre y del deseo de que cada familia tenga acceso a estas herramientas, desde casa, a su propio ritmo.',
-    sobre_foto: saved.sobre_foto ?? Eugenia,
     sobre_familias: saved.sobre_familias ?? '500',
     testimonio1_nombre: saved.testimonio1_nombre ?? 'Catalina S.',
     testimonio1_texto: saved.testimonio1_texto ?? 'La respiración 4-7-8 cambió por completo las noches en casa. Mi hijo de 5 años la pide solo antes de dormir.',
@@ -151,10 +150,9 @@ export default async function HomePage() {
           </div>
           <div className="relative">
             <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-[#D4CABC]">
-              <img
-                src={c.sobre_foto}
+              <img className="w-full h-full object-cover object-top"
+                src={Eugenia}
                 alt="Eugenia"
-                className="w-full h-full object-cover object-top"
               />
             </div>
             <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl p-4 shadow-xl border border-[rgba(42,56,40,0.1)]">
