@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   try {
     await resend.emails.send({
       from: 'Pequeños Momentos de Calma <contacto@pequenosmomentosdecalma.com.ar>',
-      to: 'mcortes@alu.frlp.utn.edu.ar',
+      to: 'pequenosmomentosdecalma@gmail.com',
       subject: `Nuevo mensaje de contacto de ${name}`,
       html: `
         <h2>Nuevo mensaje de contacto</h2>
