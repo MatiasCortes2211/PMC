@@ -7,7 +7,7 @@ type Props = {
 }
 
 export default function Footer({
-  email = 'pequenosmomentoscalma@gmail.com',
+  email = 'pequenosmomentosdecalma@gmail.com',
   instagram = '@pmc.calma',
 }: Props) {
   return (
