@@ -14,6 +14,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://pequenosmomentosdecalma.com.ar'),
   title: {
     default: 'Pequeños Momentos de Calma',
     template: '%s | Pequeños Momentos de Calma',
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pequeños Momentos de Calma',
     description: 'Crianza consciente a través de la aromaterapia y la respiración holística.',
-    url: 'https://pmc-snowy.vercel.app',
+    url: 'https://pequenosmomentosdecalma.com.ar',
     siteName: 'Pequeños Momentos de Calma',
     locale: 'es_AR',
     type: 'website',
