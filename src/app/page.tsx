@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import FormularioContacto from '@/components/FormularioContacto'
 import Footer from '@/components/Footer'
 import { Droplets, Wind, Heart, Leaf } from 'lucide-react'
+import Eugenia from '../img/Eugenia.jpeg'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -37,7 +38,7 @@ export default async function HomePage() {
     sobre_nombre: saved.sobre_nombre ?? 'Eugenia',
     sobre_bio1: saved.sobre_bio1 ?? 'Soy terapeuta holística, instructora certificada de aromaterapia y respiración consciente. Llevo más de ocho años acompañando a familias en el camino hacia una crianza más presente y conectada con lo esencial.',
     sobre_bio2: saved.sobre_bio2 ?? 'Pequeños Momentos de Calma nació de mi propia experiencia como madre y del deseo de que cada familia tenga acceso a estas herramientas, desde casa, a su propio ritmo.',
-    sobre_foto: saved.sobre_foto ?? 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=700&h=900&fit=crop&auto=format',
+    sobre_foto: saved.sobre_foto ?? Eugenia,
     sobre_familias: saved.sobre_familias ?? '500',
     testimonio1_nombre: saved.testimonio1_nombre ?? 'Catalina S.',
     testimonio1_texto: saved.testimonio1_texto ?? 'La respiración 4-7-8 cambió por completo las noches en casa. Mi hijo de 5 años la pide solo antes de dormir.',
