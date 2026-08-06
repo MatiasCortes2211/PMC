@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import FormularioContacto from '@/components/FormularioContacto'
 import Footer from '@/components/Footer'
 import { Droplets, Wind, Heart, Leaf } from 'lucide-react'
-import Eugenia from '../img/Eugenia.jpg'
+import Eugenia from '../img/Eugenia.jpeg'
 
 const catStyle: Record<string, string> = {
   Aromaterapia: 'bg-[#D4E4C8] text-[#2A3828]',
@@ -151,7 +151,7 @@ export default async function HomePage() {
           <div className="relative">
             <div className="aspect-[3/4] rounded-3xl overflow-hidden bg-[#D4CABC]">
               <img className="w-full h-full object-cover object-top"
-                src={Eugenia}
+                src={Eugenia.src}
                 alt="Eugenia"
               />
             </div>
