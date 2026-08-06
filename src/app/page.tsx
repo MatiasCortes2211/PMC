@@ -48,7 +48,7 @@ export default async function HomePage() {
     testimonio3_nombre: saved.testimonio3_nombre ?? 'Fernanda L.',
     testimonio3_texto: saved.testimonio3_texto ?? 'El enfoque holístico me dio un marco de referencia que cambió mi manera de ver a mi hija. No solo sus conductas, sino a ella entera.',
     testimonio3_curso: saved.testimonio3_curso ?? 'Crianza Holística',
-    contacto_email: saved.contacto_email ?? 'hola@pequenosmomentoscalma.com',
+    contacto_email: saved.contacto_email ?? 'pequenosmomentoscalma@gmail.com',
     contacto_instagram: saved.contacto_instagram ?? '@pmc.calma',
   }
 
