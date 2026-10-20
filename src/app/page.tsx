@@ -154,7 +154,7 @@ export default async function HomePage() {
         </div>
 
         {/* Pilares */}
-        <div className="grid md:grid-cols-3 gap-6 mb-24">
+        <div className="grid md:grid-cols-2 gap-6 mb-24">
           {[
             {
               icon: <Droplets className="w-6 h-6 text-[#5A6854]" />,
