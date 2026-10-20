@@ -237,12 +237,7 @@ export default async function HomePage() {
       {/* Testimonios */}
       <section className="py-24 px-6 max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <div className="w-8 h-px bg-[#7EA87F]" />
-            <span className="text-[#7EA87F] font-nunito text-sm font-bold uppercase tracking-widest">Testimonios</span>
-            <div className="w-8 h-px bg-[#7EA87F]" />
-          </div>
-          <h2 className="font-playfair text-4xl font-bold text-[#2A3828]">Lo que dicen las familias</h2>
+          <h2 className="font-playfair text-4xl font-bold text-[#2A3828]">Testimonios</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {[
