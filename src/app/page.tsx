@@ -136,7 +136,7 @@ export default async function HomePage() {
               {c.sobre_bio2}
             </p>
             <div className="flex flex-wrap gap-2">
-              {['Aromaterapia', 'Respiración consciente', 'Crianza holística'].map(tag => (
+              {['Aromaterapia', 'Respiración consciente'].map(tag => (
                 <span key={tag} className="text-xs font-nunito font-semibold px-3 py-1.5 bg-[#D4E4C8] text-[#2A3828] rounded-full">
                   {tag}
                 </span>
@@ -165,11 +165,6 @@ export default async function HomePage() {
               icon: <Wind className="w-6 h-6 text-[#5A6854]" />,
               title: 'Respiración Consciente',
               desc: 'Técnicas adaptadas para cada etapa del desarrollo que regulan el sistema nervioso y cultivan la presencia.'
-            },
-            {
-              icon: <Heart className="w-6 h-6 text-[#5A6854]" />,
-              title: 'Crianza Holística',
-              desc: 'Una filosofía que ve al niño como un ser completo: cuerpo, mente, emoción y espíritu.'
             },
           ].map(({ icon, title, desc }) => (
             <div key={title} className="bg-[#EDE8DF]/60 rounded-2xl p-6 border border-[rgba(42,56,40,0.07)]">

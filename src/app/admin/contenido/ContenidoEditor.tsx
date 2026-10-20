@@ -61,10 +61,6 @@ export default function ContenidoEditor({ content }: Props) {
           <label className="block text-sm font-nunito text-[#2A3828] mb-1">URL foto de perfil</label>
           <input value={data.sobre_foto} onChange={e => set('sobre_foto', e.target.value)} className={inputCls} />
         </div>
-        <div>
-          <label className="block text-sm font-nunito text-[#2A3828] mb-1">Familias acompañadas</label>
-          <input value={data.sobre_familias} onChange={e => set('sobre_familias', e.target.value)} className={inputCls} />
-        </div>
       </section>
 
       {/* Testimonios */}

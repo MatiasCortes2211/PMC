@@ -24,7 +24,7 @@ export default function Footer({
               </span>
             </div>
             <p className="font-nunito text-[#A8C4A2]/70 text-sm max-w-xs leading-relaxed text-center md:text-left">
-              Crianza consciente a través de la aromaterapia y la respiración holística.
+              Aromaterapia y rituales conscientes para tu bienestar y el de tu familia.
             </p>
           </div>
           <div className="flex flex-col md:flex-row gap-10">
