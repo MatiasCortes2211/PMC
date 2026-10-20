@@ -67,11 +67,6 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#2A3828]/65 via-[#2A3828]/40 to-[#F5F2EC]" />
         </div>
         <div className="relative text-center px-6 max-w-3xl mx-auto">
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center gap-2 bg-[#D4E4C8]/25 backdrop-blur-sm px-4 py-2 rounded-full border border-[#D4E4C8]/40">
-              <span className="text-sm font-nunito text-[#D4E4C8] font-semibold">Crianza Holística</span>
-            </div>
-          </div>
           <h1 className="font-playfair text-5xl md:text-[5.5rem] font-bold text-[#F5F2EC] leading-[1.08] mb-6"
             style={{ textShadow: '0 2px 24px rgba(42,56,40,0.55)' }}>
             Pequeños<br /><em className="italic text-[#D4E4C8]">Momentos</em><br />de Calma
@@ -105,10 +100,10 @@ export default async function HomePage() {
             ¿Qué es <em className="italic text-[#5A6854]">Pequeños<br />Momentos de Calma</em>?
           </h2>
           <p className="font-nunito text-[#9A9488] text-base leading-relaxed mb-4">
-            Somos un espacio de aprendizaje y acompañamiento para familias que buscan criar desde la consciencia. Nuestra propuesta integra la sabiduría de la filosofía holística con herramientas prácticas como la aromaterapia y la respiración consciente.
+            Es un espacio para volver a vos. Acompañamos a familias y mujeres que quieren vivir con más presencia, a través de rituales simples, aromaterapia, respiración consciente y energía.
           </p>
           <p className="font-nunito text-[#9A9488] text-base leading-relaxed mb-8">
-            Creemos que los pequeños momentos cotidianos — el ritual de la noche, el abrazo de la mañana, la respiración compartida — son la verdadera base de una crianza amorosa y conectada.
+            Creemos que la calma no se encuentra, se crea: en un aroma, en una respiración, en un abrazo, en ese minuto que te regalás al día.
           </p>
           <Link href="/cursos"
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#7EA87F] text-[#F5F2EC] font-nunito font-bold rounded-full hover:bg-[#5A6854] transition-colors text-base shadow-sm">
@@ -154,17 +149,6 @@ export default async function HomePage() {
                 src={Eugenia.src}
                 alt="Eugenia"
               />
-            </div>
-            <div className="absolute -bottom-5 -right-5 bg-white rounded-2xl p-4 shadow-xl border border-[rgba(42,56,40,0.1)]">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#D4E4C8] flex items-center justify-center">
-                  <span className="text-[#5A6854]">♥</span>
-                </div>
-                <div>
-                  <div className="font-playfair text-lg font-bold text-[#2A3828]">+{c.sobre_familias}</div>
-                  <div className="text-[#9A9488] font-nunito text-xs">familias acompañadas</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -390,9 +374,6 @@ export default async function HomePage() {
             <Leaf className="w-32 h-32" />
           </div>
           <h2 className="font-playfair text-4xl font-bold text-[#D4E4C8] mb-4 relative">Comienza tu camino hoy</h2>
-          <p className="font-nunito text-[#A8C4A2]/80 text-lg mb-8 relative max-w-xl mx-auto">
-            Únete a cientos de familias que ya están transformando su forma de criar, un pequeño momento a la vez.
-          </p>
           <Link href={session ? '/cursos' : '/register'}
             className="px-10 py-4 bg-[#7EA87F] text-[#F5F2EC] font-nunito font-bold rounded-full hover:bg-[#A8C4A2] transition-colors text-base shadow-lg relative inline-block">
             {session ? 'Ver cursos' : 'Crear cuenta gratis'}
