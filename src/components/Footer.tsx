@@ -8,7 +8,7 @@ type Props = {
 
 export default function Footer({
   email = 'momentodecalma1@gmail.com',
-  instagram = '@pmc.calma',
+  instagram = '@momento_de_calma',
 }: Props) {
   return (
     <footer className="bg-[#2A3828] py-14 px-6">
