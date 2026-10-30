@@ -24,12 +24,28 @@ export async function POST(req: Request) {
   const userId = (session.user as any).id
   const { cursoId } = await req.json()
 
+  const curso = await prisma.course.findUnique({ where: { id: cursoId } })
+  if (!curso) {
+    return NextResponse.json({ error: 'Curso no encontrado' }, { status: 404 })
+  }
+
+  if (curso.availableUntil && new Date(curso.availableUntil) <= new Date()) {
+    return NextResponse.json(
+      { error: 'El período de inscripción para este curso ha finalizado' },
+      { status: 400 }
+    )
+  }
+
   const compra = await prisma.purchase.findUnique({
     where: { userId_courseId: { userId, courseId: cursoId } },
   })
 
-  if (compra?.status === 'APPROVED') {
-    return NextResponse.json({ error: 'Ya compraste este curso' }, { status: 400 })
+  const tieneAccesoValido =
+    compra?.status === 'APPROVED' &&
+    (!compra.expiresAt || new Date(compra.expiresAt) > new Date())
+
+  if (tieneAccesoValido) {
+    return NextResponse.json({ error: 'Ya tenés acceso activo a este curso' }, { status: 400 })
   }
 
   const item = await prisma.cartItem.upsert({

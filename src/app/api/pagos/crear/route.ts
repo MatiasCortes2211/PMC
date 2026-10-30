@@ -28,13 +28,28 @@ export async function GET(req: Request) {
     return NextResponse.redirect(new URL('/cursos', req.url))
   }
 
+  // Check if course enrollment is closed due to limited time availability
+  if (curso.availableUntil && new Date(curso.availableUntil) <= new Date()) {
+    return NextResponse.redirect(new URL(`/cursos/${cursoId}?error=disponibilidad_finalizada`, req.url))
+  }
+
   const userId = (session.user as any).id
 
   const compraExistente = await prisma.purchase.findUnique({
     where: { userId_courseId: { userId, courseId: cursoId } },
   })
 
-  if (compraExistente?.status === 'APPROVED') {
+  // If purchase is approved and not expired, user already has access
+  const tieneAccesoValido =
+    compraExistente?.status === 'APPROVED' &&
+    (!compraExistente.expiresAt || new Date(compraExistente.expiresAt) > new Date())
+
+  if (tieneAccesoValido) {
+    return NextResponse.redirect(new URL(`/cursos/${cursoId}`, req.url))
+  }
+
+  // If course is free, redirect to course page (they can enroll directly with 1 click)
+  if (curso.isFree || curso.price === 0) {
     return NextResponse.redirect(new URL(`/cursos/${cursoId}`, req.url))
   }
 
@@ -64,7 +79,7 @@ export async function GET(req: Request) {
   if (compraExistente) {
     await prisma.purchase.update({
       where: { id: compraExistente.id },
-      data: { status: 'PENDING' },
+      data: { status: 'PENDING', amount: curso.price },
     })
   } else {
     await prisma.purchase.create({

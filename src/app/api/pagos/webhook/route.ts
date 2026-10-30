@@ -36,12 +36,24 @@ export async function POST(req: Request) {
 
       if (status === 'approved') {
         await Promise.all([
-          ...cursoIds.map((courseId) =>
-            prisma.purchase.updateMany({
-              where: { userId, courseId },
-              data: { status: 'APPROVED', mpPaymentId: String(id) },
+          ...cursoIds.map(async (courseId) => {
+            const course = await prisma.course.findUnique({
+              where: { id: courseId },
+              select: { accessDurationDays: true },
             })
-          ),
+            const expiresAt = course?.accessDurationDays
+              ? new Date(Date.now() + course.accessDurationDays * 86400000)
+              : null
+
+            return prisma.purchase.updateMany({
+              where: { userId, courseId },
+              data: {
+                status: 'APPROVED',
+                mpPaymentId: String(id),
+                expiresAt,
+              },
+            })
+          }),
           prisma.cartItem.deleteMany({ where: { userId } }),
         ])
       } else if (status === 'rejected') {
@@ -58,9 +70,21 @@ export async function POST(req: Request) {
       const [userId, courseId] = ref.split('|')
 
       if (status === 'approved') {
+        const course = await prisma.course.findUnique({
+          where: { id: courseId },
+          select: { accessDurationDays: true },
+        })
+        const expiresAt = course?.accessDurationDays
+          ? new Date(Date.now() + course.accessDurationDays * 86400000)
+          : null
+
         await prisma.purchase.updateMany({
           where: { userId, courseId },
-          data: { status: 'APPROVED', mpPaymentId: String(id) },
+          data: {
+            status: 'APPROVED',
+            mpPaymentId: String(id),
+            expiresAt,
+          },
         })
       } else if (status === 'rejected') {
         await prisma.purchase.updateMany({

@@ -208,19 +208,26 @@ export default async function HomePage() {
                       </div>
                     )}
                     <div className="p-5 flex flex-col flex-1">
-                      {c.category && (
-                        <span className={`self-start text-xs font-nunito font-semibold px-2.5 py-0.5 rounded-full mb-3 ${
-                          c.category === 'Aromaterapia' ? 'bg-[#D4E4C8] text-[#2A3828]' :
-                          c.category === 'Respiración' ? 'bg-[#A8C4A2] text-[#2A3828]' :
-                          'bg-[#EDE8DF] text-[#5A6854]'
-                        }`}>
-                          {c.category}
-                        </span>
-                      )}
+                      <div className="flex items-center gap-2 flex-wrap mb-3">
+                        {c.category && (
+                          <span className={`text-xs font-nunito font-semibold px-2.5 py-0.5 rounded-full ${
+                            c.category === 'Aromaterapia' ? 'bg-[#D4E4C8] text-[#2A3828]' :
+                            c.category === 'Respiración' ? 'bg-[#A8C4A2] text-[#2A3828]' :
+                            'bg-[#EDE8DF] text-[#5A6854]'
+                          }`}>
+                            {c.category}
+                          </span>
+                        )}
+                        {c.isFree && (
+                          <span className="bg-[#D4E4C8] text-[#2A3828] text-xs font-nunito font-bold px-2 py-0.5 rounded-full">
+                            Gratis
+                          </span>
+                        )}
+                      </div>
                       <h3 className="font-playfair text-[#2A3828] font-semibold text-lg leading-snug mb-2">{c.title}</h3>
                       <p className="text-[#9A9488] font-nunito text-sm leading-relaxed mb-4 flex-1 line-clamp-2">{c.description}</p>
                       <div className="flex items-center justify-between pt-3 border-t border-[rgba(42,56,40,0.07)]">
-                        <span className="font-playfair font-bold text-[#2A3828] text-xl">{fmt(c.price)}</span>
+                        <span className="font-playfair font-bold text-[#2A3828] text-xl">{c.isFree ? 'Gratis' : fmt(c.price)}</span>
                         <span className="flex items-center gap-1.5 text-[#7EA87F] font-nunito font-bold text-sm">
                           Ver curso →
                         </span>

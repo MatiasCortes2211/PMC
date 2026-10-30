@@ -12,11 +12,31 @@ export async function PATCH(
   }
 
   const { cursoId } = await params
-  const { title, description, price, imageUrl, category } = await req.json()
+  const {
+    title,
+    description,
+    price,
+    imageUrl,
+    category,
+    isFree,
+    availableUntil,
+    accessDurationDays,
+  } = await req.json()
 
+  // Updating the course leaves existing purchases intact.
+  // Existing buyers keep their purchased access and their original expiration date if any.
   const curso = await prisma.course.update({
     where: { id: cursoId },
-    data: { title, description, price, imageUrl, category },
+    data: {
+      title,
+      description,
+      price: isFree ? 0 : parseFloat(String(price)),
+      imageUrl,
+      category,
+      isFree: Boolean(isFree),
+      availableUntil: availableUntil ? new Date(availableUntil) : null,
+      accessDurationDays: accessDurationDays ? parseInt(String(accessDurationDays), 10) : null,
+    },
   })
 
   return NextResponse.json(curso)

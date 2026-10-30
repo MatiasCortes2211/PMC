@@ -8,14 +8,32 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
-  const { title, description, price, imageUrl } = await req.json()
+  const {
+    title,
+    description,
+    price,
+    imageUrl,
+    category,
+    isFree,
+    availableUntil,
+    accessDurationDays,
+  } = await req.json()
 
-  if (!title || !description || price === undefined) {
+  if (!title || !description || (price === undefined && !isFree)) {
     return NextResponse.json({ error: 'Faltan datos' }, { status: 400 })
   }
 
   const curso = await prisma.course.create({
-    data: { title, description, price, imageUrl: imageUrl || null },
+    data: {
+      title,
+      description,
+      price: isFree ? 0 : parseFloat(String(price)),
+      imageUrl: imageUrl || null,
+      category: category || null,
+      isFree: Boolean(isFree),
+      availableUntil: availableUntil ? new Date(availableUntil) : null,
+      accessDurationDays: accessDurationDays ? parseInt(String(accessDurationDays), 10) : null,
+    },
   })
 
   return NextResponse.json(curso)

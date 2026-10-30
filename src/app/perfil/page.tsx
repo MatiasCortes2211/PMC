@@ -24,6 +24,8 @@ export default async function PerfilPage() {
     orderBy: { createdAt: 'desc' },
   })
 
+  const now = new Date()
+
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
       <Navbar />
@@ -54,7 +56,7 @@ export default async function PerfilPage() {
 
           {compras.length === 0 ? (
             <div className="bg-white rounded-2xl border border-[#D4CABC] p-10 text-center">
-              <p className="font-nunito text-[#9A9488] mb-4">Todavía no compraste ningún curso.</p>
+              <p className="font-nunito text-[#9A9488] mb-4">Todavía no te inscribiste en ningún curso.</p>
               <Link
                 href="/cursos"
                 className="inline-block px-6 py-3 bg-[#7EA87F] text-[#F5F2EC] font-nunito font-bold rounded-full hover:bg-[#5A6854] transition-colors text-sm"
@@ -64,39 +66,63 @@ export default async function PerfilPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {compras.map(compra => (
-                <Link key={compra.id} href={`/cursos/${compra.courseId}`}>
-                  <div className="bg-white rounded-2xl border border-[#D4CABC] p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                    {compra.course.imageUrl && (
-                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#D4CABC] flex-shrink-0">
-                        <img
-                          src={compra.course.imageUrl}
-                          alt={compra.course.title}
-                          className="w-full h-full object-cover"
-                        />
+              {compras.map(compra => {
+                const vencido = compra.expiresAt ? new Date(compra.expiresAt) <= now : false
+
+                return (
+                  <Link key={compra.id} href={`/cursos/${compra.courseId}`}>
+                    <div className="bg-white rounded-2xl border border-[#D4CABC] p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                      <div className="flex items-center gap-4 min-w-0">
+                        {compra.course.imageUrl && (
+                          <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#D4CABC] flex-shrink-0">
+                            <img
+                              src={compra.course.imageUrl}
+                              alt={compra.course.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <h3 className="font-playfair font-semibold text-[#2A3828] leading-snug">
+                            {compra.course.title}
+                          </h3>
+                          <div className="flex items-center gap-2 flex-wrap mt-1">
+                            {compra.course.category && (
+                              <span className="font-nunito text-xs text-[#9A9488]">
+                                {compra.course.category}
+                              </span>
+                            )}
+                            {compra.expiresAt ? (
+                              <span className={`font-nunito text-xs px-2 py-0.5 rounded-full ${
+                                vencido
+                                  ? 'bg-red-100 text-red-700 font-bold'
+                                  : 'bg-amber-100 text-amber-800'
+                              }`}>
+                                {vencido
+                                  ? `Venció el ${new Date(compra.expiresAt).toLocaleDateString('es-AR')}`
+                                  : `Acceso hasta el ${new Date(compra.expiresAt).toLocaleDateString('es-AR')}`}
+                              </span>
+                            ) : (
+                              <span className="font-nunito text-xs text-[#7EA87F] font-semibold">
+                                Acceso permanente
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-playfair font-semibold text-[#2A3828] leading-snug">
-                        {compra.course.title}
-                      </h3>
-                      {compra.course.category && (
-                        <span className="font-nunito text-xs text-[#9A9488]">
-                          {compra.course.category}
+
+                      <div className="flex items-center gap-3 self-end sm:self-auto flex-shrink-0">
+                        <span className="font-nunito text-sm font-bold text-[#7EA87F]">
+                          {compra.amount === 0 ? 'Gratis' : fmt(compra.amount)}
                         </span>
-                      )}
+                        <span className="text-sm text-[#7EA87F] font-nunito font-bold">
+                          {vencido ? 'Renovar abono →' : 'Ir al curso →'}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
-                      <span className="font-nunito text-sm font-bold text-[#7EA87F]">
-                        {fmt(compra.course.price)}
-                      </span>
-                      <span className="text-sm text-[#7EA87F] font-nunito font-bold">
-                        Ir al curso →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>

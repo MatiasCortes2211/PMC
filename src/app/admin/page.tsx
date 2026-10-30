@@ -116,9 +116,16 @@ async function AdminCursosList() {
           }`}
         >
           <div>
-            <p className="text-[#2A3828] font-medium">{curso.title}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-[#2A3828] font-medium">{curso.title}</p>
+              {curso.isFree && (
+                <span className="bg-[#D4E4C8] text-[#2A3828] text-xs font-nunito font-bold px-2 py-0.5 rounded-full">
+                  Gratis
+                </span>
+              )}
+            </div>
             <p className="text-sm text-[#5A6854]">
-              {curso._count.lessons} clases · {curso._count.purchases} ventas ·{' '}
+              {curso.isFree ? 'Gratis' : `$${curso.price.toLocaleString('es-AR')}`} · {curso._count.lessons} clases · {curso._count.purchases} inscriptos ·{' '}
               <span className={curso.published ? 'text-[#7EA87F]' : 'text-[#9A9488]'}>
                 {curso.published ? 'Publicado' : 'Borrador'}
               </span>
@@ -135,7 +142,6 @@ async function AdminCursosList() {
     </div>
   )
 }
-
 
 async function AdminBlogList() {
   const posts = await prisma.blogPost.findMany({

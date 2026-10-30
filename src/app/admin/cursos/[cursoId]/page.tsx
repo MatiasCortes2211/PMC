@@ -18,7 +18,12 @@ export default async function EditarCursoPage({
 
   const curso = await prisma.course.findUnique({
     where: { id: cursoId },
-    include: { lessons: { orderBy: { order: 'asc' } } },
+    include: {
+      lessons: {
+        orderBy: { order: 'asc' },
+        include: { attachments: true },
+      },
+    },
   })
 
   const categorias = await prisma.category.findMany({
@@ -38,7 +43,7 @@ export default async function EditarCursoPage({
           <div>
             <p className="text-sm text-[#5A6854]">Precio</p>
             <p className="text-2xl font-semibold text-[#2A3828]">
-              ${curso.price.toLocaleString('es-AR')}
+              {curso.isFree ? 'Gratis' : `$${curso.price.toLocaleString('es-AR')}`}
             </p>
           </div>
           <PublishButton cursoId={cursoId} published={curso.published} />
