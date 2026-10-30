@@ -12,10 +12,27 @@ export async function POST(
   }
 
   const { cursoId } = await params
-  const { title, description, videoUrl, order } = await req.json()
+  const { title, description, videoUrl, order, attachments } = await req.json()
 
   const leccion = await prisma.lesson.create({
-    data: { title, description, videoUrl, order, courseId: cursoId },
+    data: {
+      title,
+      description,
+      videoUrl,
+      order,
+      courseId: cursoId,
+      attachments: attachments && attachments.length > 0
+        ? {
+            create: attachments.map((a: { name: string; url: string }) => ({
+              name: a.name,
+              url: a.url,
+            })),
+          }
+        : undefined,
+    },
+    include: {
+      attachments: true,
+    },
   })
 
   return NextResponse.json(leccion)

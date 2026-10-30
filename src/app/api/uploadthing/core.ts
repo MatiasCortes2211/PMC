@@ -15,6 +15,18 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       return { uploadedBy: metadata.userId, url: file.url }
     }),
+
+  pdfUploader: f({ pdf: { maxFileSize: '16MB', maxFileCount: 3 } })
+    .middleware(async () => {
+      const session = await auth()
+      if (!session || (session.user as any).role !== 'ADMIN') {
+        throw new Error('No autorizado')
+      }
+      return { userId: (session.user as any).id }
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      return { uploadedBy: metadata.userId, url: file.url, name: file.name }
+    }),
 } satisfies FileRouter
 
 export type OurFileRouter = typeof ourFileRouter

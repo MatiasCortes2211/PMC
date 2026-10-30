@@ -14,12 +14,28 @@ export async function PATCH(
   const { leccionId } = await params
   const data = await req.json()
 
+  if (data.attachments !== undefined) {
+    await prisma.lessonAttachment.deleteMany({ where: { lessonId: leccionId } })
+    if (Array.isArray(data.attachments) && data.attachments.length > 0) {
+      await prisma.lessonAttachment.createMany({
+        data: data.attachments.map((a: { name: string; url: string }) => ({
+          lessonId: leccionId,
+          name: a.name,
+          url: a.url,
+        })),
+      })
+    }
+  }
+
   const leccion = await prisma.lesson.update({
     where: { id: leccionId },
     data: {
       title: data.title,
       description: data.description,
       videoUrl: data.videoUrl,
+    },
+    include: {
+      attachments: true,
     },
   })
 

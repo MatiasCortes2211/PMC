@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import PdfUploader, { type PdfAttachment } from '@/components/PdfUploader'
 
 type Leccion = {
   id: string
@@ -8,6 +9,7 @@ type Leccion = {
   description: string | null
   videoUrl: string | null
   order: number
+  attachments?: PdfAttachment[]
 }
 
 export default function LeccionesEditor({
@@ -21,6 +23,7 @@ export default function LeccionesEditor({
   const [titulo, setTitulo] = useState('')
   const [descripcion, setDescripcion] = useState('')
   const [videoUrl, setVideoUrl] = useState('')
+  const [attachments, setAttachments] = useState<PdfAttachment[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [editando, setEditando] = useState<string | null>(null)
@@ -39,6 +42,7 @@ export default function LeccionesEditor({
         description: descripcion || null,
         videoUrl: videoUrl || null,
         order: lista.length + 1,
+        attachments,
       }),
     })
 
@@ -54,6 +58,7 @@ export default function LeccionesEditor({
     setTitulo('')
     setDescripcion('')
     setVideoUrl('')
+    setAttachments([])
     setLoading(false)
   }
 
@@ -96,7 +101,7 @@ export default function LeccionesEditor({
           className="bg-white rounded-2xl border border-[#D4CABC] overflow-hidden"
         >
           {editando === leccion.id ? (
-            <div className="p-6 space-y-3">
+            <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm text-[#2A3828] mb-1">Título</label>
                 <input
@@ -122,6 +127,14 @@ export default function LeccionesEditor({
                   className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
                 />
               </div>
+
+              {/* Editor de PDFs para edición */}
+              <PdfUploader
+                files={editData.attachments ?? leccion.attachments ?? []}
+                onChange={(newFiles) => setEditData({ ...editData, attachments: newFiles })}
+                maxFiles={3}
+              />
+
               <div className="flex gap-2 pt-1">
                 <button
                   onClick={() => guardarEdicion(leccion.id)}
@@ -139,7 +152,7 @@ export default function LeccionesEditor({
             </div>
           ) : (
             <div className="px-6 py-4 flex items-start justify-between gap-4">
-              <div>
+              <div className="space-y-1">
                 <p className="text-[#2A3828] font-medium">
                   {leccion.order}. {leccion.title}
                 </p>
@@ -151,10 +164,36 @@ export default function LeccionesEditor({
                     {leccion.videoUrl}
                   </p>
                 )}
+
+                {/* PDFs adjuntos */}
+                {leccion.attachments && leccion.attachments.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {leccion.attachments.map((att) => (
+                      <a
+                        key={att.id || att.url}
+                        href={att.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 bg-[#F5F2EC] border border-[#D4CABC] text-[#2A3828] hover:text-[#7EA87F] text-xs px-2.5 py-1 rounded-md transition-colors"
+                      >
+                        <span className="text-red-500 font-bold text-[10px]">PDF</span>
+                        <span className="truncate max-w-[200px]">{att.name}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex gap-3 shrink-0">
                 <button
-                  onClick={() => { setEditando(leccion.id); setEditData({}) }}
+                  onClick={() => {
+                    setEditando(leccion.id)
+                    setEditData({
+                      title: leccion.title,
+                      description: leccion.description,
+                      videoUrl: leccion.videoUrl,
+                      attachments: leccion.attachments || [],
+                    })
+                  }}
                   className="text-sm text-[#5A6854] hover:text-[#2A3828]"
                 >
                   Editar
@@ -206,6 +245,13 @@ export default function LeccionesEditor({
             className="w-full border border-[#D4CABC] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#7EA87F]"
           />
         </div>
+
+        {/* Subida de PDFs */}
+        <PdfUploader
+          files={attachments}
+          onChange={setAttachments}
+          maxFiles={3}
+        />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
